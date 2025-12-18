@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PCollectMapper">
+    
+    <resultMap type="PCollect" id="PCollectResult">
+        <result property="collectId"    column="collect_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="sectionId"    column="section_id"    />
+        <result property="sectionName"    column="section_name"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPCollectVo">
+        select c.collect_id, c.user_id, c.doctor_id, c.doctor_name, c.section_id, c.section_name, 
+               c.create_by, c.create_time
+        from p_collect c
+    </sql>
+
+    <select id="selectPCollectList" parameterType="PCollect" resultMap="PCollectResult">
+        <include refid="selectPCollectVo"/>
+        <where>  
+            <if test="userId != null "> and c.user_id = #{userId}</if>
+            <if test="doctorId != null "> and c.doctor_id = #{doctorId}</if>
+            <if test="doctorName != null  and doctorName != ''"> and c.doctor_name like concat('%', #{doctorName}, '%')</if>
+            <if test="sectionId != null "> and c.section_id = #{sectionId}</if>
+        </where>
+        order by c.create_time desc
+    </select>
+    
+    <select id="selectPCollectByCollectId" parameterType="Long" resultMap="PCollectResult">
+        <include refid="selectPCollectVo"/>
+        where c.collect_id = #{collectId}
+    </select>
+        
+    <insert id="insertPCollect" parameterType="PCollect" useGeneratedKeys="true" keyProperty="collectId">
+        insert into p_collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="doctorName != null">doctor_name,</if>
+            <if test="sectionId != null">section_id,</if>
+            <if test="sectionName != null">section_name,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="doctorName != null">#{doctorName},</if>
+            <if test="sectionId != null">#{sectionId},</if>
+            <if test="sectionName != null">#{sectionName},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePCollect" parameterType="PCollect">
+        update p_collect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="sectionId != null">section_id = #{sectionId},</if>
+            <if test="sectionName != null">section_name = #{sectionName},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where collect_id = #{collectId}
+    </update>
+
+    <delete id="deletePCollectByCollectId" parameterType="Long">
+        delete from p_collect where collect_id = #{collectId}
+    </delete>
+
+    <delete id="deletePCollectByCollectIds" parameterType="String">
+        delete from p_collect where collect_id in 
+        <foreach item="collectId" collection="array" open="(" separator="," close=")">
+            #{collectId}
+        </foreach>
+    </delete>
+</mapper>
+

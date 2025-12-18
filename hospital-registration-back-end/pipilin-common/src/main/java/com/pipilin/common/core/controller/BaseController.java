@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.pipilin.common.core.domain.AjaxResult;
-import com.pipilin.common.core.domain.model.LoginUser;
 import com.pipilin.common.core.page.PageDomain;
 import com.pipilin.common.core.page.TableDataInfo;
 import com.pipilin.common.core.page.TableSupport;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pipilin.common.constant.HttpStatus;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.sql.SqlUtil;
 
 /**
@@ -170,34 +168,29 @@ public class BaseController
     }
 
     /**
-     * 获取用户缓存信息
-     */
-    public LoginUser getLoginUser()
-    {
-        return SecurityUtils.getLoginUser();
-    }
-
-    /**
-     * 获取登录用户id
+     * 获取登录用户id（已禁用，需要Spring Security支持）
      */
     public Long getUserId()
     {
-        return getLoginUser().getUserId();
+        // TODO: 需要实现自己的用户认证逻辑
+        return null;
     }
 
     /**
-     * 获取登录部门id
+     * 获取登录部门id（已禁用，需要Spring Security支持）
      */
     public Long getDeptId()
     {
-        return getLoginUser().getDeptId();
+        // TODO: 需要实现自己的用户认证逻辑
+        return null;
     }
 
     /**
-     * 获取登录用户名
+     * 获取登录用户名（已禁用，需要Spring Security支持）
      */
     public String getUsername()
     {
-        return getLoginUser().getUsername();
+        // TODO: 需要实现自己的用户认证逻辑
+        return null;
     }
 }

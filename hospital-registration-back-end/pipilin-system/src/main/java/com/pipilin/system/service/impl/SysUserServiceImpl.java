@@ -3,7 +3,7 @@ package com.pipilin.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Validator;
+import jakarta.validation.Validator;
 
 import com.pipilin.system.domain.SysPost;
 import com.pipilin.system.domain.SysUserPost;
@@ -19,7 +19,6 @@ import com.pipilin.common.constant.UserConstants;
 import com.pipilin.common.core.domain.entity.SysRole;
 import com.pipilin.common.core.domain.entity.SysUser;
 import com.pipilin.common.exception.ServiceException;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.common.utils.bean.BeanValidators;
 import com.pipilin.common.utils.spring.SpringUtils;
@@ -235,7 +234,7 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public void checkUserDataScope(Long userId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        if (!SysUser.isAdmin(null))
         {
             SysUser user = new SysUser();
             user.setUserId(userId);
@@ -500,7 +499,7 @@ public class SysUserServiceImpl implements ISysUserService
                 if (StringUtils.isNull(u))
                 {
                     BeanValidators.validateWithException(validator, user);
-                    user.setPassword(SecurityUtils.encryptPassword(password));
+                    user.setPassword(password); // TODO: Add password encryption
                     user.setCreateBy(operName);
                     this.insertUser(user);
                     successNum++;

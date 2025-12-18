@@ -1,6 +1,6 @@
 package com.pipilin.framework.config;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 import com.pipilin.common.utils.ServletUtils;
 

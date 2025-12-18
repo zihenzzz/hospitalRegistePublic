@@ -3,7 +3,7 @@ package com.pipilin.common.core.domain.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import com.pipilin.common.core.domain.BaseEntity;
 import com.pipilin.common.xss.Xss;

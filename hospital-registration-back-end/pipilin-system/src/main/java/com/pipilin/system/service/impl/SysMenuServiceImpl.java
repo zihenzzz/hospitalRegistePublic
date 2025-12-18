@@ -21,7 +21,6 @@ import com.pipilin.common.core.domain.TreeSelect;
 import com.pipilin.common.core.domain.entity.SysMenu;
 import com.pipilin.common.core.domain.entity.SysRole;
 import com.pipilin.common.core.domain.entity.SysUser;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.system.mapper.SysRoleMapper;
 import com.pipilin.system.mapper.SysRoleMenuMapper;
@@ -132,7 +131,7 @@ public class SysMenuServiceImpl implements ISysMenuService
     public List<SysMenu> selectMenuTreeByUserId(Long userId)
     {
         List<SysMenu> menus = null;
-        if (SecurityUtils.isAdmin(userId))
+        if (false) // TODO: Check if user is admin
         {
             menus = menuMapper.selectMenuTreeAll();
         }

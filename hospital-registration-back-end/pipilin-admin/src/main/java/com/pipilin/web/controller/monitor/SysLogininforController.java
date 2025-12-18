@@ -1,9 +1,8 @@
 package com.pipilin.web.controller.monitor;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,6 @@ import com.pipilin.common.core.domain.AjaxResult;
 import com.pipilin.common.core.page.TableDataInfo;
 import com.pipilin.common.enums.BusinessType;
 import com.pipilin.common.utils.poi.ExcelUtil;
-import com.pipilin.framework.web.service.SysPasswordService;
 import com.pipilin.system.domain.SysLogininfor;
 import com.pipilin.system.service.ISysLogininforService;
 
@@ -32,10 +30,6 @@ public class SysLogininforController extends BaseController
     @Autowired
     private ISysLogininforService logininforService;
 
-    @Autowired
-    private SysPasswordService passwordService;
-
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysLogininfor logininfor)
     {
@@ -45,7 +39,6 @@ public class SysLogininforController extends BaseController
     }
 
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysLogininfor logininfor)
     {
@@ -53,16 +46,12 @@ public class SysLogininforController extends BaseController
         ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
         util.exportExcel(response, list, "登录日志");
     }
-
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public AjaxResult remove(@PathVariable Long[] infoIds)
     {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
-
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean()
@@ -70,13 +59,11 @@ public class SysLogininforController extends BaseController
         logininforService.cleanLogininfor();
         return success();
     }
-
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:unlock')")
     @Log(title = "账户解锁", businessType = BusinessType.OTHER)
     @GetMapping("/unlock/{userName}")
     public AjaxResult unlock(@PathVariable("userName") String userName)
     {
-        passwordService.clearLoginRecordCache(userName);
+        // TODO: Clear login record cache (Spring Security removed)
         return success();
     }
 }

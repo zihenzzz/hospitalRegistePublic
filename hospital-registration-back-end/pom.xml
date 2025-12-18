@@ -16,21 +16,27 @@
         <pipilin.version>3.8.5</pipilin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <druid.version>1.2.15</druid.version>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <spring-boot.version>3.2.0</spring-boot.version>
+        <spring-ai-alibaba.version>1.0.0-M3.2</spring-ai-alibaba.version>
+        <druid.version>1.2.20</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
-        <swagger.version>3.0.0</swagger.version>
+        <springdoc.version>2.3.0</springdoc.version>
         <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
-        <fastjson.version>2.0.20</fastjson.version>
-        <oshi.version>6.4.0</oshi.version>
-        <commons.io.version>2.11.0</commons.io.version>
-        <commons.fileupload.version>1.4</commons.fileupload.version>
+        <pagehelper.boot.version>2.1.0</pagehelper.boot.version>
+        <fastjson.version>2.0.43</fastjson.version>
+        <oshi.version>6.4.10</oshi.version>
+        <commons.io.version>2.15.1</commons.io.version>
+        <commons.fileupload.version>1.5</commons.fileupload.version>
         <commons.collections.version>3.2.2</commons.collections.version>
-        <poi.version>4.1.2</poi.version>
+        <poi.version>5.2.5</poi.version>
         <velocity.version>2.3</velocity.version>
-        <jwt.version>0.9.1</jwt.version>
+        <jwt.version>0.12.3</jwt.version>
+        <hutool.version>5.8.24</hutool.version>
+        <mybatis.version>3.0.3</mybatis.version>
     </properties>
 	
     <!-- 依赖声明 -->
@@ -41,10 +47,21 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.5.14</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Spring AI Alibaba BOM - 暂时注释，等项目稳定后再添加 -->
+            <!--
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-bom</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            -->
 
             <!-- 阿里数据库连接池 -->
             <dependency>
@@ -74,17 +91,11 @@
                 <version>${oshi.version}</version>
             </dependency>
 
-            <!-- Swagger3依赖 -->
+            <!-- SpringDoc OpenAPI (替代Swagger) -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- io常用工具类 -->
@@ -132,8 +143,32 @@
             <!-- Token生成与解析-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
+                <artifactId>jjwt-api</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- Hutool工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- MyBatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
 
             <!-- 验证码 -->
@@ -168,10 +203,10 @@
     </dependencyManagement>
 
     <modules>
-        <module>pipilin-admin</module>
-        <module>pipilin-framework</module>
-        <module>pipilin-system</module>
         <module>pipilin-common</module>
+        <module>pipilin-system</module>
+        <module>pipilin-framework</module>
+        <module>pipilin-admin</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -185,10 +220,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>17</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -196,21 +230,89 @@
     </build>
 
     <repositories>
+        <!-- 阿里云公共仓库 -->
         <repository>
-            <id>public</id>
-            <name>aliyun nexus</name>
+            <id>aliyun-public</id>
+            <name>aliyun public</name>
             <url>https://maven.aliyun.com/repository/public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- 阿里云 Spring 仓库 -->
+        <repository>
+            <id>aliyun-spring</id>
+            <name>aliyun spring</name>
+            <url>https://maven.aliyun.com/repository/spring</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Maven 中央仓库 (用于 Spring AI Alibaba) -->
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Spring Milestones (用于 Spring AI) -->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Spring Snapshots (用于开发版本) -->
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>public</id>
-            <name>aliyun nexus</name>
+            <id>aliyun-public</id>
+            <name>aliyun public</name>
             <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

@@ -14,7 +14,6 @@ import com.pipilin.common.core.domain.entity.SysRole;
 import com.pipilin.common.core.domain.entity.SysUser;
 import com.pipilin.common.core.text.Convert;
 import com.pipilin.common.exception.ServiceException;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.common.utils.spring.SpringUtils;
 import com.pipilin.system.mapper.SysDeptMapper;
@@ -190,7 +189,7 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Override
     public void checkDeptDataScope(Long deptId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        if (!SysUser.isAdmin(null))
         {
             SysDept dept = new SysDept();
             dept.setDeptId(deptId);

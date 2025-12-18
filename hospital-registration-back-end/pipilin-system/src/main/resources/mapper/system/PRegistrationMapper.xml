@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.PRegistrationMapper">
+    
+    <resultMap type="PRegistration" id="PRegistrationResult">
+        <result property="registrationId"    column="registration_id"    />
+        <result property="registrationNo"    column="registration_no"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="patientPhone"    column="patient_phone"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="sectionId"    column="section_id"    />
+        <result property="sectionName"    column="section_name"    />
+        <result property="outpatienId"    column="outpatien_id"    />
+        <result property="schedulingId"    column="scheduling_id"    />
+        <result property="registrationDate"    column="registration_date"    />
+        <result property="timeSlot"    column="time_slot"    />
+        <result property="registrationFee"    column="registration_fee"    />
+        <result property="status"    column="status"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="payTime"    column="pay_time"    />
+        <result property="cancelTime"    column="cancel_time"    />
+        <result property="cancelReason"    column="cancel_reason"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectPRegistrationVo">
+        select registration_id, registration_no, patient_id, patient_name, patient_phone, doctor_id, 
+               doctor_name, section_id, section_name, outpatien_id, scheduling_id, registration_date, 
+               time_slot, registration_fee, status, pay_status, pay_time, cancel_time, cancel_reason, 
+               create_by, create_time, update_by, update_time, remark 
+        from p_registration
+    </sql>
+
+    <select id="selectPRegistrationList" parameterType="PRegistration" resultMap="PRegistrationResult">
+        <include refid="selectPRegistrationVo"/>
+        <where>  
+            <if test="registrationNo != null  and registrationNo != ''"> and registration_no = #{registrationNo}</if>
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="doctorId != null "> and doctor_id = #{doctorId}</if>
+            <if test="sectionId != null "> and section_id = #{sectionId}</if>
+            <if test="registrationDate != null "> and registration_date = #{registrationDate}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="payStatus != null  and payStatus != ''"> and pay_status = #{payStatus}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectPRegistrationByRegistrationId" parameterType="Long" resultMap="PRegistrationResult">
+        <include refid="selectPRegistrationVo"/>
+        where registration_id = #{registrationId}
+    </select>
+        
+    <insert id="insertPRegistration" parameterType="PRegistration" useGeneratedKeys="true" keyProperty="registrationId">
+        insert into p_registration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="registrationNo != null and registrationNo != ''">registration_no,</if>
+            <if test="patientId != null">patient_id,</if>
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="patientPhone != null">patient_phone,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="doctorName != null">doctor_name,</if>
+            <if test="sectionId != null">section_id,</if>
+            <if test="sectionName != null">section_name,</if>
+            <if test="outpatienId != null">outpatien_id,</if>
+            <if test="schedulingId != null">scheduling_id,</if>
+            <if test="registrationDate != null">registration_date,</if>
+            <if test="timeSlot != null">time_slot,</if>
+            <if test="registrationFee != null">registration_fee,</if>
+            <if test="status != null">status,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="cancelTime != null">cancel_time,</if>
+            <if test="cancelReason != null">cancel_reason,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="registrationNo != null and registrationNo != ''">#{registrationNo},</if>
+            <if test="patientId != null">#{patientId},</if>
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="patientPhone != null">#{patientPhone},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="doctorName != null">#{doctorName},</if>
+            <if test="sectionId != null">#{sectionId},</if>
+            <if test="sectionName != null">#{sectionName},</if>
+            <if test="outpatienId != null">#{outpatienId},</if>
+            <if test="schedulingId != null">#{schedulingId},</if>
+            <if test="registrationDate != null">#{registrationDate},</if>
+            <if test="timeSlot != null">#{timeSlot},</if>
+            <if test="registrationFee != null">#{registrationFee},</if>
+            <if test="status != null">#{status},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="cancelTime != null">#{cancelTime},</if>
+            <if test="cancelReason != null">#{cancelReason},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePRegistration" parameterType="PRegistration">
+        update p_registration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="registrationNo != null and registrationNo != ''">registration_no = #{registrationNo},</if>
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="patientPhone != null">patient_phone = #{patientPhone},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="sectionId != null">section_id = #{sectionId},</if>
+            <if test="sectionName != null">section_name = #{sectionName},</if>
+            <if test="outpatienId != null">outpatien_id = #{outpatienId},</if>
+            <if test="schedulingId != null">scheduling_id = #{schedulingId},</if>
+            <if test="registrationDate != null">registration_date = #{registrationDate},</if>
+            <if test="timeSlot != null">time_slot = #{timeSlot},</if>
+            <if test="registrationFee != null">registration_fee = #{registrationFee},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="cancelTime != null">cancel_time = #{cancelTime},</if>
+            <if test="cancelReason != null">cancel_reason = #{cancelReason},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where registration_id = #{registrationId}
+    </update>
+
+    <delete id="deletePRegistrationByRegistrationId" parameterType="Long">
+        delete from p_registration where registration_id = #{registrationId}
+    </delete>
+
+    <delete id="deletePRegistrationByRegistrationIds" parameterType="String">
+        delete from p_registration where registration_id in 
+        <foreach item="registrationId" collection="array" open="(" separator="," close=")">
+            #{registrationId}
+        </foreach>
+    </delete>
+</mapper>
+

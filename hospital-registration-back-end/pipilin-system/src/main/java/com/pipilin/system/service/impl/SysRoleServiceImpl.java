@@ -19,7 +19,6 @@ import com.pipilin.common.constant.UserConstants;
 import com.pipilin.common.core.domain.entity.SysRole;
 import com.pipilin.common.core.domain.entity.SysUser;
 import com.pipilin.common.exception.ServiceException;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.common.utils.spring.SpringUtils;
 import com.pipilin.system.mapper.SysRoleMapper;
@@ -198,7 +197,7 @@ public class SysRoleServiceImpl implements ISysRoleService
     @Override
     public void checkRoleDataScope(Long roleId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        if (!SysUser.isAdmin(null))
         {
             SysRole role = new SysRole();
             role.setRoleId(roleId);

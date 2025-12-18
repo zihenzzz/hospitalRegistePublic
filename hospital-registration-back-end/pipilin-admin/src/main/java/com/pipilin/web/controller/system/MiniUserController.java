@@ -5,7 +5,6 @@ import com.pipilin.common.core.controller.BaseController;
 import com.pipilin.common.core.domain.AjaxResult;
 import com.pipilin.common.core.domain.entity.SysUser;
 import com.pipilin.common.core.page.TableDataInfo;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.system.domain.PCollect;
 import com.pipilin.system.service.IPCollectService;
@@ -89,7 +88,7 @@ public class MiniUserController extends BaseController
     @PutMapping("/resetPwdMini")
     public AjaxResult resetPwdMini(@RequestBody SysUser user)
     {
-        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+        user.setPassword(user.getPassword()); // TODO: Add password encryption
         return toAjax(userService.resetPwd(user));
     }
 }

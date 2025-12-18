@@ -3,11 +3,11 @@ package com.pipilin.framework.config;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import javax.sql.DataSource;
 
 import com.pipilin.framework.config.properties.DruidProperties;
@@ -85,6 +85,7 @@ public class DruidConfig
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
     @ConditionalOnProperty(name = "spring.datasource.druid.statViewServlet.enabled", havingValue = "true")
+    @org.springframework.boot.autoconfigure.condition.ConditionalOnBean(DruidStatProperties.class)
     public FilterRegistrationBean removeDruidFilterRegistrationBean(DruidStatProperties properties)
     {
         // 获取web监控页面的参数
@@ -97,7 +98,7 @@ public class DruidConfig
         Filter filter = new Filter()
         {
             @Override
-            public void init(javax.servlet.FilterConfig filterConfig) throws ServletException
+            public void init(jakarta.servlet.FilterConfig filterConfig) throws ServletException
             {
             }
             @Override

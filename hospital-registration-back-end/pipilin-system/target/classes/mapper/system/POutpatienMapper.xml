@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pipilin.system.mapper.POutpatienMapper">
+    
+    <resultMap type="POutpatien" id="POutpatienResult">
+        <result property="outpatienId"    column="outpatien_id"    />
+        <result property="sectionId"    column="section_id"    />
+        <result property="outpatienName"    column="outpatien_name"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="roomNumber"    column="room_number"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="sectionName"    column="section_name"    />
+    </resultMap>
+
+    <sql id="selectPOutpatienVo">
+        select o.outpatien_id, o.section_id, o.outpatien_name, o.room_name, o.room_number, o.status, 
+               o.create_by, o.create_time, o.update_by, o.update_time, o.remark,
+               s.section_name
+        from p_outpatien o
+        left join p_section s on o.section_id = s.section_id
+    </sql>
+
+    <select id="selectPOutpatienList" parameterType="POutpatien" resultMap="POutpatienResult">
+        <include refid="selectPOutpatienVo"/>
+        <where>  
+            <if test="sectionId != null "> and o.section_id = #{sectionId}</if>
+            <if test="outpatienName != null  and outpatienName != ''"> and o.outpatien_name like concat('%', #{outpatienName}, '%')</if>
+            <if test="roomName != null  and roomName != ''"> and o.room_name like concat('%', #{roomName}, '%')</if>
+            <if test="status != null  and status != ''"> and o.status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectPOutpatienByOutpatienId" parameterType="Long" resultMap="POutpatienResult">
+        <include refid="selectPOutpatienVo"/>
+        where o.outpatien_id = #{outpatienId}
+    </select>
+        
+    <insert id="insertPOutpatien" parameterType="POutpatien" useGeneratedKeys="true" keyProperty="outpatienId">
+        insert into p_outpatien
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sectionId != null">section_id,</if>
+            <if test="outpatienName != null and outpatienName != ''">outpatien_name,</if>
+            <if test="roomName != null">room_name,</if>
+            <if test="roomNumber != null">room_number,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sectionId != null">#{sectionId},</if>
+            <if test="outpatienName != null and outpatienName != ''">#{outpatienName},</if>
+            <if test="roomName != null">#{roomName},</if>
+            <if test="roomNumber != null">#{roomNumber},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePOutpatien" parameterType="POutpatien">
+        update p_outpatien
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sectionId != null">section_id = #{sectionId},</if>
+            <if test="outpatienName != null and outpatienName != ''">outpatien_name = #{outpatienName},</if>
+            <if test="roomName != null">room_name = #{roomName},</if>
+            <if test="roomNumber != null">room_number = #{roomNumber},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where outpatien_id = #{outpatienId}
+    </update>
+
+    <delete id="deletePOutpatienByOutpatienId" parameterType="Long">
+        delete from p_outpatien where outpatien_id = #{outpatienId}
+    </delete>
+
+    <delete id="deletePOutpatienByOutpatienIds" parameterType="String">
+        delete from p_outpatien where outpatien_id in 
+        <foreach item="outpatienId" collection="array" open="(" separator="," close=")">
+            #{outpatienId}
+        </foreach>
+    </delete>
+</mapper>
+

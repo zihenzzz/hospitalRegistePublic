@@ -2,8 +2,8 @@ package com.pipilin.framework.aspectj;
 
 import java.util.Collection;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -15,11 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson2.JSON;
 import com.pipilin.common.annotation.Log;
-import com.pipilin.common.core.domain.model.LoginUser;
 import com.pipilin.common.enums.BusinessStatus;
 import com.pipilin.common.enums.HttpMethod;
 import com.pipilin.common.filter.PropertyPreExcludeFilter;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.common.utils.ServletUtils;
 import com.pipilin.common.utils.StringUtils;
 import com.pipilin.common.utils.ip.IpUtils;
@@ -68,9 +66,8 @@ public class LogAspect
     {
         try
         {
-            // 获取当前的用户
-            LoginUser loginUser = SecurityUtils.getLoginUser();
-
+            // TODO: 日志功能已禁用用户追踪（需要Spring Security支持）
+            
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
@@ -78,10 +75,8 @@ public class LogAspect
             String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
             operLog.setOperIp(ip);
             operLog.setOperUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
-            if (loginUser != null)
-            {
-                operLog.setOperName(loginUser.getUsername());
-            }
+            // TODO: Set operator name (需要Spring Security支持)
+            operLog.setOperName("system");
 
             if (e != null)
             {

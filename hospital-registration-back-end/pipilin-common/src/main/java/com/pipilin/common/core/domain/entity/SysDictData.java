@@ -1,7 +1,7 @@
 package com.pipilin.common.core.domain.entity;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import com.pipilin.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
