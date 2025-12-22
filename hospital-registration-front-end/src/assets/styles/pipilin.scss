@@ -1,0 +1,265 @@
+/**
+ * 通用css样式布局处理
+ * Copyright (c) 2019 pipilin
+ */
+
+/** 基础通用 **/
+.pt5 {
+  padding-top: 5px;
+}
+.pr5 {
+  padding-right: 5px;
+}
+.pb5 {
+  padding-bottom: 5px;
+}
+.pl5 {
+  padding-left: 5px;
+}
+.mt5 {
+  margin-top: 5px;
+}
+.mr5 {
+  margin-right: 5px;
+}
+.mb5 {
+  margin-bottom: 5px;
+}
+.ml5 {
+  margin-left: 5px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pr10 {
+  padding-right: 10px;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+.pl10 {
+  padding-left: 10px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.pt15 {
+  padding-top: 15px;
+}
+.pr15 {
+  padding-right: 15px;
+}
+.pb15 {
+  padding-bottom: 15px;
+}
+.pl15 {
+  padding-left: 15px;
+}
+.mt15 {
+  margin-top: 15px;
+}
+.mr15 {
+  margin-right: 15px;
+}
+.mb15 {
+  margin-bottom: 15px;
+}
+.ml15 {
+  margin-left: 15px;
+}
+.pt20 {
+  padding-top: 20px;
+}
+.pr20 {
+  padding-right: 20px;
+}
+.pb20 {
+  padding-bottom: 20px;
+}
+.pl20 {
+  padding-left: 20px;
+}
+.mt20 {
+  margin-top: 20px;
+}
+.mr20 {
+  margin-right: 20px;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.ml20 {
+  margin-left: 20px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+
+/** 表单布局 **/
+.form-header {
+  font-size:15px;
+  color:#6379bb;
+  border-bottom:1px solid #ddd;
+  margin:8px 10px 25px 10px;
+  padding-bottom:5px
+}
+
+/** 表格布局 **/
+.pagination-container {
+  position: relative;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+/** 文本域禁用样式 **/
+textarea[disabled] {
+  background: #f5f7fa;
+  border-color: #e4e7ed;
+  color: #c0c4cc;
+  cursor: not-allowed;
+}
+
+/** 表格更多操作下拉样式 **/
+.el-dropdown-menu{
+  padding: 0!important;
+}
+
+.el-table .sort-caret.descending{
+  bottom: 1px;
+}
+
+.dropdown-menu-item-icon {
+  margin-right: 5px;
+}
+
+/** 表格更多操作按钮样式 **/
+.btn-more {
+  background-color: #ddd;
+  border-color: #ddd;
+  color: #606266;
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 7px 10px;
+}
+
+/** 表格搜索间距 **/
+.el-form-item--small.el-form-item {
+  margin-bottom: 8px;
+}
+
+/** 表格操作栏按钮间距 **/
+.el-table .el-button--mini, .el-table .el-button--small {
+  margin-left: 5px;
+}
+
+.el-table--medium .el-button--mini, .el-table--medium .el-button--small {
+  margin-left: 5px;
+}
+
+.el-table--small .el-button--mini, .el-table--small .el-button--small {
+  margin-left: 5px;
+}
+
+.el-table--mini .el-button--mini, .el-table--mini .el-button--small {
+  margin-left: 5px;
+}
+
+/** 表格表头样式 **/
+.el-table thead {
+  color: #333;
+}
+
+/** 表格表头背景 **/
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+  background-color: #f6faff!important;
+}
+
+/** 通用表单操作 **/
+.form-footer {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.form-footer .el-button {
+  padding: 12px 40px;
+}
+
+/** 首页样式 **/
+.el-card__body {
+  padding-bottom: 0px;
+}
+
+.panel-group .card-panel-col {
+  margin-bottom: 32px;
+}
+
+.panel-group .card-panel {
+  height: 108px;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+  color: #666;
+  background: #fff;
+  box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
+  border-color: rgba(0, 0, 0, .05);
+}
+
+.panel-group .card-panel .icon-people {
+  color: #40c9c6;
+}
+
+.panel-group .card-panel .icon-message {
+  color: #36a3f7;
+}
+
+.panel-group .card-panel .icon-money {
+  color: #f4516c;
+}
+
+.panel-group .card-panel .icon-shopping {
+  color: #34bfa3;
+}
+
+.panel-group .card-panel .card-panel-icon-wrapper {
+  float: left;
+  margin: 14px 0 0 14px;
+  padding: 16px;
+  transition: all .38s ease-out;
+  border-radius: 6px;
+}
+
+.panel-group .card-panel .card-panel-icon {
+  float: left;
+  font-size: 48px;
+}
+
+.panel-group .card-panel .card-panel-description {
+  float: right;
+  font-weight: 700;
+  margin: 26px 26px 26px 0;
+}
+
+.panel-group .card-panel .card-panel-description .card-panel-text {
+  line-height: 18px;
+  color: rgba(0, 0, 0, .45);
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.panel-group .card-panel .card-panel-description .card-panel-num {
+  font-size: 20px;
+}
+

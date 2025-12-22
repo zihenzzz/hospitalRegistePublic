@@ -39,3 +39,4 @@ foreach ($dir in $dirsToDelete) {
 
 Write-Host "`nDeleted $deletedCount items" -ForegroundColor Cyan
 
+

@@ -1,0 +1,22 @@
+{
+  "name": "hospital-registration-wx",
+  "version": "1.0.0",
+  "description": "医院预约挂号微信小程序",
+  "main": "main.js",
+  "scripts": {
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin"
+  },
+  "dependencies": {
+    "uview-ui": "^2.0.31"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "uni-app",
+    "miniprogram",
+    "hospital"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+

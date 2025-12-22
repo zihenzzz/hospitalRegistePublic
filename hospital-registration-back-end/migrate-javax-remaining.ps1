@@ -18,3 +18,4 @@ foreach ($file in $javaFiles) {
 
 Write-Host "Fixed $fixedCount files" -ForegroundColor Cyan
 
+

@@ -29,3 +29,4 @@ foreach ($file in $files) {
 
 Write-Host "`nProcessed $count files" -ForegroundColor Cyan
 
+

@@ -1,0 +1,104 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "医院预约挂号",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/schedulingRecord/schedulingRecord",
+      "style": {
+        "navigationBarTitleText": "选择排班"
+      }
+    },
+    {
+      "path": "pages/subscribeInfo/subscribeInfo",
+      "style": {
+        "navigationBarTitleText": "预约信息"
+      }
+    },
+    {
+      "path": "pages/registrationRecord/registrationRecord",
+      "style": {
+        "navigationBarTitleText": "挂号记录"
+      }
+    },
+    {
+      "path": "pages/registrationDetail/registrationDetail",
+      "style": {
+        "navigationBarTitleText": "挂号详情"
+      }
+    },
+    {
+      "path": "pages/myVisitors/myVisitors",
+      "style": {
+        "navigationBarTitleText": "就诊人管理"
+      }
+    },
+    {
+      "path": "pages/payRecord/payRecord",
+      "style": {
+        "navigationBarTitleText": "充值记录"
+      }
+    },
+    {
+      "path": "pages/orderPayStatus/orderPayStatus",
+      "style": {
+        "navigationBarTitleText": "支付结果"
+      }
+    },
+    {
+      "path": "pages/nucleicAcidPayStatus/nucleicAcidPayStatus",
+      "style": {
+        "navigationBarTitleText": "支付结果"
+      }
+    },
+    {
+      "path": "pages/my/my",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/user/info/info",
+      "style": {
+        "navigationBarTitleText": "个人信息"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#5677fc",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/img/h1.png",
+        "selectedIconPath": "static/img/h2.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/img/m1.png",
+        "selectedIconPath": "static/img/w2.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "医院预约挂号",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8F8F8"
+  }
+}
+
