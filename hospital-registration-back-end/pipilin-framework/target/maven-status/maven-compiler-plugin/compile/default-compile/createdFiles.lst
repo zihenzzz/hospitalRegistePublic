@@ -9,11 +9,14 @@ com\pipilin\framework\config\KaptchaTextCreator.class
 com\pipilin\framework\manager\factory\AsyncFactory$1.class
 com\pipilin\framework\web\domain\server\Mem.class
 com\pipilin\framework\config\FilterConfig.class
+com\pipilin\framework\web\service\SysRegisterService.class
 com\pipilin\framework\manager\AsyncManager.class
 com\pipilin\framework\aspectj\DataScopeAspect.class
 com\pipilin\framework\config\properties\PermitAllUrlProperties.class
 com\pipilin\framework\web\domain\server\Sys.class
 com\pipilin\framework\config\ApplicationConfig.class
+com\pipilin\framework\web\service\SysLoginService.class
+com\pipilin\framework\web\service\SysPermissionService.class
 com\pipilin\framework\config\DruidConfig$1.class
 com\pipilin\framework\config\properties\DruidProperties.class
 com\pipilin\framework\config\ServerConfig.class
@@ -28,6 +31,7 @@ com\pipilin\framework\config\DruidConfig.class
 com\pipilin\framework\config\ThreadPoolConfig.class
 com\pipilin\framework\aspectj\DataSourceAspect.class
 com\pipilin\framework\config\CaptchaConfig.class
+com\pipilin\framework\web\service\TokenService.class
 com\pipilin\framework\web\domain\server\Jvm.class
 com\pipilin\framework\datasource\DynamicDataSourceContextHolder.class
 com\pipilin\framework\config\RedisConfig.class

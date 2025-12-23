@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss">
 /* 引入uView基础样式 */
-@import 'uview-ui/index.scss';
+/* 注意：如果index.scss为空，可以不引入，uView组件会自带样式 */
 
 /* 全局样式 */
 page {

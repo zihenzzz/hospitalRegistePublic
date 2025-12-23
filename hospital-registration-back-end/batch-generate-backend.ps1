@@ -111,3 +111,4 @@ public class ${name}ServiceImpl implements I${name}Service
 
 Write-Host "`n所有Mapper和Service实现类生成完成！" -ForegroundColor Cyan
 
+

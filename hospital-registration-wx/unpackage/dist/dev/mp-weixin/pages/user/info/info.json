@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "个人信息",
+  "usingComponents": {
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup"
+  }
+}

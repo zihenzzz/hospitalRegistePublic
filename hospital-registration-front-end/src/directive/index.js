@@ -21,3 +21,4 @@ if (window.Vue) {
 }
 
 export default install
+

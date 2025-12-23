@@ -1,12 +1,9 @@
 <template>
   <view class="container">
-    <!-- 顶部轮播 -->
-    <view class="banner">
-      <swiper class="swiper" indicator-dots autoplay circular>
-        <swiper-item v-for="(item, index) in bannerList" :key="index">
-          <image :src="item" mode="aspectFill" class="banner-img"></image>
-        </swiper-item>
-      </swiper>
+    <!-- 顶部横幅 -->
+    <view class="banner-header">
+      <view class="banner-title">医院预约挂号</view>
+      <view class="banner-subtitle">便捷就医，健康生活</view>
     </view>
 
     <!-- 功能菜单 -->
@@ -49,10 +46,7 @@ import { getSectionList } from '@/api/api.js'
 export default {
   data() {
     return {
-      bannerList: [
-        '/static/img/banner1.jpg',
-        '/static/img/banner2.jpg'
-      ],
+      bannerList: [],
       menuList: [
         { name: '预约挂号', icon: '/static/appointmentRegister.png', url: '/pages/schedulingRecord/schedulingRecord' },
         { name: '挂号记录', icon: '/static/registrationRecord.png', url: '/pages/registrationRecord/registrationRecord' },
@@ -132,18 +126,25 @@ export default {
   background: #f5f5f5;
 }
 
-.banner {
+.banner-header {
   width: 100%;
   height: 320rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   
-  .swiper {
-    width: 100%;
-    height: 100%;
+  .banner-title {
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 16rpx;
   }
   
-  .banner-img {
-    width: 100%;
-    height: 100%;
+  .banner-subtitle {
+    font-size: 28rpx;
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -240,4 +241,5 @@ export default {
   font-size: 24rpx;
 }
 </style>
+
 

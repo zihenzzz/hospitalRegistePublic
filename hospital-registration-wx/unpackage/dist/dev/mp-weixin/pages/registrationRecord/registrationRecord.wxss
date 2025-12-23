@@ -1,0 +1,119 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-0fffd606 {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+.status-tabs.data-v-0fffd606 {
+  background: #fff;
+  display: flex;
+  padding: 20rpx 0;
+}
+.status-tabs .tab-item.data-v-0fffd606 {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+.status-tabs .tab-item.active.data-v-0fffd606 {
+  color: #667eea;
+  font-weight: bold;
+}
+.status-tabs .tab-item.active.data-v-0fffd606::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background: #667eea;
+  border-radius: 2rpx;
+}
+.registration-list.data-v-0fffd606 {
+  padding: 20rpx;
+}
+.registration-list .registration-item.data-v-0fffd606 {
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+.registration-list .registration-item .item-header.data-v-0fffd606 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.registration-list .registration-item .item-header .doctor-info .doctor-name.data-v-0fffd606 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.registration-list .registration-item .item-header .doctor-info .section-name.data-v-0fffd606 {
+  font-size: 26rpx;
+  color: #999;
+}
+.registration-list .registration-item .item-header .status-badge.data-v-0fffd606 {
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+.registration-list .registration-item .item-header .status-badge.status-0.data-v-0fffd606 {
+  background: #fff4e5;
+  color: #ff9900;
+}
+.registration-list .registration-item .item-header .status-badge.status-1.data-v-0fffd606 {
+  background: #e8f5e8;
+  color: #67c23a;
+}
+.registration-list .registration-item .item-header .status-badge.status-2.data-v-0fffd606 {
+  background: #f0f0f0;
+  color: #999;
+}
+.registration-list .registration-item .item-info .info-row.data-v-0fffd606 {
+  display: flex;
+  margin-bottom: 12rpx;
+  font-size: 28rpx;
+}
+.registration-list .registration-item .item-info .info-row .label.data-v-0fffd606 {
+  color: #999;
+  min-width: 150rpx;
+}
+.registration-list .registration-item .item-info .info-row .value.data-v-0fffd606 {
+  color: #333;
+  flex: 1;
+}
+.registration-list .registration-item .item-info .info-row .value.fee.data-v-0fffd606 {
+  color: #f56c6c;
+  font-weight: bold;
+}
+.registration-list .registration-item .item-footer.data-v-0fffd606 {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+.registration-list .registration-item .item-footer button.data-v-0fffd606 {
+  padding: 12rpx 32rpx;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+.registration-list .registration-item .item-footer .btn-cancel.data-v-0fffd606 {
+  background: #fff;
+  color: #666;
+  border: 1rpx solid #ddd;
+}
+.registration-list .registration-item .item-footer .btn-detail.data-v-0fffd606 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}

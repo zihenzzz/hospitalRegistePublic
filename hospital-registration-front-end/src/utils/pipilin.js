@@ -230,3 +230,4 @@ export function blobValidate(data) {
 	return data.type !== 'application/json'
 }
 
+

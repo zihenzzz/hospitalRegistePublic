@@ -1,0 +1,14 @@
+/* uni.scss - 全局样式变量 */
+
+/* 引入 uView UI 主题变量 */
+@import 'uni_modules/uview-ui/theme.scss';
+
+/* 自定义全局变量（可选） */
+$primary-color: #667eea;
+$success-color: #67c23a;
+$warning-color: #ff9900;
+$error-color: #f56c6c;
+$text-color: #333333;
+$text-color-light: #999999;
+$border-color: #e5e5e5;
+$bg-color: #f5f5f5;

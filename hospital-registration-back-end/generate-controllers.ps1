@@ -125,3 +125,4 @@ public class ${name}Controller extends BaseController
 
 Write-Host "`n所有Controller生成完成！" -ForegroundColor Cyan
 
+

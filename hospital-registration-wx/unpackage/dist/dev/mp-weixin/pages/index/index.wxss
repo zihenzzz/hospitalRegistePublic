@@ -1,0 +1,106 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-57280228 {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+.banner-header.data-v-57280228 {
+  width: 100%;
+  height: 320rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.banner-header .banner-title.data-v-57280228 {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 16rpx;
+}
+.banner-header .banner-subtitle.data-v-57280228 {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+.menu-grid.data-v-57280228 {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 20rpx;
+  margin: 20rpx;
+  border-radius: 16rpx;
+}
+.menu-grid .menu-item.data-v-57280228 {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.menu-grid .menu-item .menu-icon.data-v-57280228 {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+}
+.menu-grid .menu-item .menu-text.data-v-57280228 {
+  font-size: 24rpx;
+  color: #333;
+}
+.section-list.data-v-57280228 {
+  margin: 20rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+.section-list .section-header.data-v-57280228 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.section-list .section-header .section-title.data-v-57280228 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.section-list .section-header .section-more.data-v-57280228 {
+  font-size: 28rpx;
+  color: #999;
+}
+.section-list .section-content.data-v-57280228 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.section-list .section-content .section-item.data-v-57280228 {
+  width: 48%;
+  margin-right: 4%;
+  margin-bottom: 20rpx;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12rpx;
+}
+.section-list .section-content .section-item.data-v-57280228:nth-child(2n) {
+  margin-right: 0;
+}
+.section-list .section-content .section-item .section-name.data-v-57280228 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8rpx;
+}
+.section-list .section-content .section-item .section-desc.data-v-57280228 {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.footer-tip.data-v-57280228 {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999;
+  font-size: 24rpx;
+}

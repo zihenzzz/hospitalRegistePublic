@@ -327,3 +327,4 @@ Write-Host "插件文件创建完成" -ForegroundColor Green
 Write-Host "所有必需文件生成完成！" -ForegroundColor Green
 "@
 </invoke>
+

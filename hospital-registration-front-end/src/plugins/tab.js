@@ -69,3 +69,4 @@ export default {
     return store.dispatch('tagsView/updateVisitedView', obj)
   }
 }
+

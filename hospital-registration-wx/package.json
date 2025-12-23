@@ -8,9 +8,8 @@
     "build:mp-weixin": "uni build -p mp-weixin"
   },
   "dependencies": {
-    "uview-ui": "^2.0.31"
+    "vuex": "^3.6.2"
   },
-  "devDependencies": {},
   "keywords": [
     "uni-app",
     "miniprogram",
@@ -19,4 +18,3 @@
   "author": "",
   "license": "ISC"
 }
-

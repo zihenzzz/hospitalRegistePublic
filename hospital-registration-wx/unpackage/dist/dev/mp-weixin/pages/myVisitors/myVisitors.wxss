@@ -1,0 +1,169 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-8940eab4 {
+  min-height: 100vh;
+  padding: 20rpx;
+  background: #f5f5f5;
+}
+.visitors-list .visitor-item.data-v-8940eab4 {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.visitors-list .visitor-item .visitor-info.data-v-8940eab4 {
+  flex: 1;
+}
+.visitors-list .visitor-item .visitor-info .name-tag.data-v-8940eab4 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+.visitors-list .visitor-item .visitor-info .name-tag .name.data-v-8940eab4 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 15rpx;
+}
+.visitors-list .visitor-item .visitor-info .name-tag .tag.data-v-8940eab4 {
+  padding: 4rpx 16rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+}
+.visitors-list .visitor-item .visitor-info .detail-row.data-v-8940eab4 {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+.visitors-list .visitor-item .visitor-info .detail-row .label.data-v-8940eab4 {
+  color: #999;
+}
+.visitors-list .visitor-item .visitor-actions.data-v-8940eab4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.visitors-list .visitor-item .visitor-actions button.data-v-8940eab4 {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.visitors-list .visitor-item .visitor-actions button .icon.data-v-8940eab4 {
+  font-size: 32rpx;
+}
+.visitors-list .visitor-item .visitor-actions button.btn-edit.data-v-8940eab4 {
+  background: #e8f4ff;
+  color: #409eff;
+}
+.visitors-list .visitor-item .visitor-actions button.btn-delete.data-v-8940eab4 {
+  background: #fff1f0;
+  color: #f56c6c;
+  margin-bottom: 0;
+}
+.add-visitor.data-v-8940eab4 {
+  margin-top: 30rpx;
+}
+.add-visitor .btn-add.data-v-8940eab4 {
+  width: 100%;
+  padding: 30rpx 0;
+  background: #fff;
+  border: 2rpx dashed #667eea;
+  border-radius: 16rpx;
+  color: #667eea;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-visitor .btn-add .icon.data-v-8940eab4 {
+  font-size: 40rpx;
+  margin-right: 10rpx;
+}
+.btn-add-empty.data-v-8940eab4 {
+  padding: 24rpx 60rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+.dialog.data-v-8940eab4 {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.dialog .dialog-title.data-v-8940eab4 {
+  padding: 40rpx 30rpx 30rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-content.data-v-8940eab4 {
+  padding: 30rpx;
+  max-height: 800rpx;
+  overflow-y: auto;
+}
+.dialog .dialog-content .form-item.data-v-8940eab4 {
+  margin-bottom: 30rpx;
+}
+.dialog .dialog-content .form-item .form-label.data-v-8940eab4 {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+.dialog .dialog-content .form-item .form-input.data-v-8940eab4 {
+  width: 100%;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+.dialog .dialog-content .form-item .form-radio.data-v-8940eab4 {
+  display: flex;
+}
+.dialog .dialog-content .form-item .form-radio label.data-v-8940eab4 {
+  margin-right: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.dialog .dialog-content .form-item .form-checkbox.data-v-8940eab4 {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #333;
+}
+.dialog .dialog-content .form-item .form-checkbox checkbox.data-v-8940eab4 {
+  margin-right: 10rpx;
+}
+.dialog .dialog-footer.data-v-8940eab4 {
+  display: flex;
+  border-top: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-footer .btn-dialog.data-v-8940eab4 {
+  flex: 1;
+  padding: 30rpx 0;
+  font-size: 30rpx;
+  border-radius: 0;
+}
+.dialog .dialog-footer .btn-dialog.btn-cancel.data-v-8940eab4 {
+  background: #fff;
+  color: #666;
+  border-right: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-footer .btn-dialog.btn-confirm.data-v-8940eab4 {
+  background: #fff;
+  color: #667eea;
+  font-weight: bold;
+}

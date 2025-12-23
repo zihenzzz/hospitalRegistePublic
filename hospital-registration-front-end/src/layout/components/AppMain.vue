@@ -46,37 +46,38 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
+  /* 64 = navbar height */
+  min-height: calc(100vh - 64px);
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: #F8FAFC;
 }
 
 .fixed-header + .app-main {
   overflow-y: auto;
   scrollbar-gutter: auto;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 64px);
   min-height: 0px;
 }
 
 .app-main:has(.copyright) {
-  padding-bottom: 36px;
+  padding-bottom: 40px;
 }
 
 .fixed-header + .app-main {
-  margin-top: 50px;
+  margin-top: 64px;
 }
 
 .hasTagsView {
   .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
+    /* 104 = navbar + tags-view = 64 + 40 */
+    min-height: calc(100vh - 104px);
   }
 
   .fixed-header + .app-main {
-    margin-top: 84px;
-    height: calc(100vh - 84px);
+    margin-top: 104px;
+    height: calc(100vh - 104px);
     min-height: 0px;
   }
 }
@@ -101,15 +102,15 @@ export default {
     .fixed-header + .app-main {
       padding-bottom: max(17px, calc(constant(safe-area-inset-bottom) + 10px));
       padding-bottom: max(17px, calc(env(safe-area-inset-bottom) + 10px));
-      height: calc(100svh - 50px);
-      height: calc(100dvh - 50px);
+      height: calc(100svh - 64px);
+      height: calc(100dvh - 64px);
     }
 
     .hasTagsView .fixed-header + .app-main {
       padding-bottom: max(17px, calc(constant(safe-area-inset-bottom) + 10px));
       padding-bottom: max(17px, calc(env(safe-area-inset-bottom) + 10px));
-      height: calc(100svh - 84px);
-      height: calc(100dvh - 84px);
+      height: calc(100svh - 104px);
+      height: calc(100dvh - 104px);
     }
   }
 }
@@ -117,16 +118,21 @@ export default {
 
 <style lang="scss">
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: #F1F5F9;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #c0c0c0;
-  border-radius: 3px;
+  background-color: #CBD5E1;
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: #94A3B8;
+  }
 }
 </style>

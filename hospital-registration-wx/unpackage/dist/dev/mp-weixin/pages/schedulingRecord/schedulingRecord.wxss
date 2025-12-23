@@ -1,0 +1,186 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-37d75426 {
+  min-height: 100vh;
+  padding: 20rpx;
+  background: #f5f5f5;
+}
+.section-info.data-v-37d75426 {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+.section-info .section-title.data-v-37d75426 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+.section-info .section-desc.data-v-37d75426 {
+  font-size: 28rpx;
+  color: #999;
+}
+.date-selector.data-v-37d75426 {
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+.date-selector .date-list.data-v-37d75426 {
+  display: flex;
+  justify-content: space-between;
+}
+.date-selector .date-list .date-item.data-v-37d75426 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 10rpx;
+  margin: 0 5rpx;
+  border-radius: 12rpx;
+  background: #f5f5f5;
+  transition: all 0.3s;
+}
+.date-selector .date-list .date-item.active.data-v-37d75426 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.date-selector .date-list .date-item.active .date-week.data-v-37d75426,
+.date-selector .date-list .date-item.active .date-day.data-v-37d75426 {
+  color: #fff;
+}
+.date-selector .date-list .date-item .date-week.data-v-37d75426 {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+.date-selector .date-list .date-item .date-day.data-v-37d75426 {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+.scheduling-list.data-v-37d75426 {
+  /* 空状态样式 */
+  /* 加载中样式 */
+}
+.scheduling-list .time-section.data-v-37d75426 {
+  margin-bottom: 30rpx;
+}
+.scheduling-list .time-section .time-header.data-v-37d75426 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.scheduling-list .time-section .time-header .time-title.data-v-37d75426 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 15rpx;
+}
+.scheduling-list .time-section .time-header .time-desc.data-v-37d75426 {
+  font-size: 24rpx;
+  color: #999;
+}
+.scheduling-list .time-section .doctor-list .doctor-item.data-v-37d75426 {
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-info.data-v-37d75426 {
+  flex: 1;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-info .doctor-name.data-v-37d75426 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-info .doctor-title.data-v-37d75426 {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-info .doctor-desc.data-v-37d75426 {
+  font-size: 24rpx;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-action.data-v-37d75426 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-action .available-num.data-v-37d75426 {
+  font-size: 24rpx;
+  font-weight: bold;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-action .fee.data-v-37d75426 {
+  font-size: 32rpx;
+  color: #f56c6c;
+  font-weight: bold;
+  margin: 10rpx 0;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-action .btn-book.data-v-37d75426 {
+  padding: 12rpx 32rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+}
+.scheduling-list .time-section .doctor-list .doctor-item .doctor-action .btn-book[disabled].data-v-37d75426 {
+  background: #e0e0e0;
+  color: #999;
+}
+.scheduling-list .time-section .doctor-list .empty-tip.data-v-37d75426 {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+.scheduling-list .empty-state.data-v-37d75426 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+  text-align: center;
+}
+.scheduling-list .empty-icon.data-v-37d75426 {
+  font-size: 100rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.6;
+}
+.scheduling-list .empty-text.data-v-37d75426 {
+  font-size: 28rpx;
+  color: #999;
+}
+.scheduling-list .loading-container.data-v-37d75426 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx 0;
+}
+.scheduling-list .loading-spinner.data-v-37d75426 {
+  width: 60rpx;
+  height: 60rpx;
+  border: 6rpx solid rgba(102, 126, 234, 0.2);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  -webkit-animation: spin-data-v-37d75426 1s linear infinite;
+          animation: spin-data-v-37d75426 1s linear infinite;
+}
+@-webkit-keyframes spin-data-v-37d75426 {
+to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+}
+}
+@keyframes spin-data-v-37d75426 {
+to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+}
+}

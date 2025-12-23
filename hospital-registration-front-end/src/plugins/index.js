@@ -18,3 +18,4 @@ export default {
     Vue.prototype.$download = download
   }
 }
+

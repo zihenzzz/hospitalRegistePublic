@@ -13,3 +13,4 @@ public interface PRegistrationMapper
     public int deletePRegistrationByRegistrationIds(Long[] registrationIds);
 }
 
+

@@ -50,3 +50,4 @@ export function delData(dictCode) {
     method: 'delete'
   })
 }
+

@@ -1,11 +1,10 @@
 import App from './App'
 import store from './store'
-import uView from 'uview-ui'
+import uView from './uni_modules/uview-ui'
 
 // #ifndef VUE3
 import Vue from 'vue'
 
-// 引入uView UI
 Vue.use(uView)
 
 // 配置Vue

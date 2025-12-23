@@ -32,6 +32,7 @@
       "es6": true,
       "enhance": true,
       "postcss": true,
+      "sassImplementationName": "node-sass",
       "preloadBackgroundData": false,
       "minified": true,
       "newFeature": false,

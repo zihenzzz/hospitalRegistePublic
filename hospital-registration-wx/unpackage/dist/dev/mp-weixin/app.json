@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/schedulingRecord/schedulingRecord",
+    "pages/subscribeInfo/subscribeInfo",
+    "pages/registrationRecord/registrationRecord",
+    "pages/registrationDetail/registrationDetail",
+    "pages/myVisitors/myVisitors",
+    "pages/payRecord/payRecord",
+    "pages/orderPayStatus/orderPayStatus",
+    "pages/nucleicAcidPayStatus/nucleicAcidPayStatus",
+    "pages/my/my",
+    "pages/user/info/info"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "医院预约挂号",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#5677fc",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/img/h1.png",
+        "selectedIconPath": "static/img/h2.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/img/m1.png",
+        "selectedIconPath": "static/img/w2.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {},
+  "usingComponents": {}
+}

@@ -1,3 +1,8 @@
+// ========================================
+// 医疗管理系统 - 全局样式
+// 现代化设计风格
+// ========================================
+
 @import './variables.scss';
 @import './mixin.scss';
 @import './transition.scss';
@@ -5,56 +10,74 @@
 @import './sidebar.scss';
 @import './btn.scss';
 
+// ========================================
+// 基础样式重置
+// ========================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: 14px;
+}
+
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-}
-
-label {
-  font-weight: 700;
-}
-
-html {
-  height: 100%;
-  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: $text-primary;
+  background-color: $gray-50;
+  line-height: 1.6;
 }
 
 #app {
   height: 100%;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+// ========================================
+// 链接样式
+// ========================================
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: $primary-dark;
+  }
+  
+  &:focus,
+  &:active {
+    outline: none;
+  }
 }
 
+// ========================================
+// 标签样式
+// ========================================
+
+label {
+  font-weight: 500;
+  color: $text-secondary;
+}
+
+// ========================================
+// 工具类
+// ========================================
+
 .no-padding {
-  padding: 0px !important;
+  padding: 0 !important;
 }
 
 .padding-content {
   padding: 4px 0;
-}
-
-a:focus,
-a:active {
-  outline: none;
-}
-
-a,
-a:focus,
-a:hover {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-}
-
-div:focus {
-  outline: none;
 }
 
 .fr {
@@ -82,7 +105,27 @@ div:focus {
 }
 
 .inlineBlock {
-  display: block;
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-success {
+  color: $success-color !important;
+}
+
+.text-warning {
+  color: $warning-color !important;
+}
+
+.text-danger {
+  color: $danger-color !important;
 }
 
 .clearfix {
@@ -96,32 +139,13 @@ div:focus {
   }
 }
 
-aside {
-  background: #eef1f6;
-  padding: 8px 24px;
-  margin-bottom: 20px;
-  border-radius: 2px;
-  display: block;
-  line-height: 32px;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  color: #2c3e50;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+// ========================================
+// 主容器样式
+// ========================================
 
-  a {
-    color: #337ab7;
-    cursor: pointer;
-
-    &:hover {
-      color: rgb(32, 160, 255);
-    }
-  }
-}
-
-//main-container全局样式
 .app-container {
-  padding: 20px;
+  padding: 24px;
+  min-height: calc(100vh - 84px);
 }
 
 .components-container {
@@ -129,50 +153,267 @@ aside {
   position: relative;
 }
 
-.text-center {
-  text-align: center
+// ========================================
+// 卡片容器
+// ========================================
+
+.card-box {
+  background: #FFFFFF;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s;
+  
+  &:hover {
+    box-shadow: $shadow;
+  }
 }
 
+// ========================================
+// 页面标题
+// ========================================
+
+.page-header {
+  margin-bottom: 24px;
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 8px 0;
+  }
+  
+  .page-desc {
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+// ========================================
+// 子导航栏
+// ========================================
+
 .sub-navbar {
-  height: 50px;
-  line-height: 50px;
+  height: 56px;
+  line-height: 56px;
   position: relative;
   width: 100%;
   text-align: right;
-  padding-right: 20px;
-  transition: 600ms ease position;
-  background: linear-gradient(90deg, rgba(32, 182, 249, 1) 0%, rgba(32, 182, 249, 1) 0%, rgba(33, 120, 241, 1) 100%, rgba(33, 120, 241, 1) 100%);
+  padding-right: 24px;
+  transition: 0.3s ease position;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  border-radius: $border-radius;
 
   .subtitle {
-    font-size: 20px;
+    font-size: 18px;
     color: #fff;
+    font-weight: 500;
   }
 
   &.draft {
-    background: #d0d0d0;
+    background: $gray-400;
   }
 
   &.deleted {
-    background: #d0d0d0;
+    background: $gray-400;
   }
 }
+
+// ========================================
+// 链接类型
+// ========================================
 
 .link-type,
 .link-type:focus {
-  color: #337ab7;
+  color: $primary-color;
   cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
 
   &:hover {
-    color: rgb(32, 160, 255);
+    color: $primary-dark;
   }
 }
 
+// ========================================
+// 筛选容器
+// ========================================
+
 .filter-container {
-  padding-bottom: 10px;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border-radius: $border-radius-lg;
+  margin-bottom: 20px;
+  box-shadow: $shadow-sm;
 
   .filter-item {
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}
+
+// ========================================
+// 表格容器
+// ========================================
+
+.table-container {
+  background: #FFFFFF;
+  border-radius: $border-radius-lg;
+  padding: 20px 24px;
+  box-shadow: $shadow-sm;
+}
+
+// ========================================
+// 统计卡片
+// ========================================
+
+.stat-card {
+  background: #FFFFFF;
+  border-radius: $border-radius-lg;
+  padding: 24px;
+  box-shadow: $shadow-sm;
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
+  
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+    
+    &.primary {
+      background: rgba(8, 145, 178, 0.1);
+      color: $primary-color;
+    }
+    
+    &.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: $success-color;
+    }
+    
+    &.warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: $warning-color;
+    }
+    
+    &.danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: $danger-color;
+    }
+  }
+  
+  .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: $text-primary;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  
+  .stat-label {
+    font-size: 14px;
+    color: $text-secondary;
+  }
+}
+
+// ========================================
+// 空状态
+// ========================================
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  
+  .empty-icon {
+    font-size: 64px;
+    color: $gray-300;
+    margin-bottom: 16px;
+  }
+  
+  .empty-text {
+    font-size: 16px;
+    color: $text-secondary;
+    margin-bottom: 24px;
+  }
+}
+
+// ========================================
+// 加载状态
+// ========================================
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+// ========================================
+// 滚动条美化
+// ========================================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-100;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-300;
+  border-radius: 4px;
+  
+  &:hover {
+    background: $gray-400;
+  }
+}
+
+// ========================================
+// 选择高亮
+// ========================================
+
+::selection {
+  background: rgba(8, 145, 178, 0.2);
+  color: $text-primary;
+}
+
+// ========================================
+// 响应式断点
+// ========================================
+
+@media screen and (max-width: 768px) {
+  .app-container {
+    padding: 16px;
+  }
+  
+  .filter-container {
+    padding: 16px;
+  }
+  
+  .table-container {
+    padding: 16px;
+  }
+  
+  .stat-card {
+    padding: 16px;
+    
+    .stat-value {
+      font-size: 24px;
+    }
   }
 }

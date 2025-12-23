@@ -1,0 +1,122 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-6094af64 {
+  min-height: 100vh;
+  padding: 20rpx;
+  background: #f5f5f5;
+}
+.avatar-section.data-v-6094af64 {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.avatar-section .section-left .section-label.data-v-6094af64 {
+  font-size: 30rpx;
+  color: #333;
+}
+.avatar-section .section-right.data-v-6094af64 {
+  display: flex;
+  align-items: center;
+}
+.avatar-section .section-right .avatar.data-v-6094af64 {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+.avatar-section .section-right .arrow.data-v-6094af64 {
+  font-size: 28rpx;
+  color: #999;
+}
+.info-list .info-item.data-v-6094af64 {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-list .info-item .label.data-v-6094af64 {
+  font-size: 30rpx;
+  color: #333;
+}
+.info-list .info-item .value-area.data-v-6094af64 {
+  display: flex;
+  align-items: center;
+}
+.info-list .info-item .value-area .value.data-v-6094af64 {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 15rpx;
+}
+.info-list .info-item .value-area .arrow.data-v-6094af64 {
+  font-size: 28rpx;
+  color: #999;
+}
+.action-section.data-v-6094af64 {
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+}
+.action-section .btn-action.data-v-6094af64 {
+  width: 100%;
+  padding: 28rpx 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+}
+.dialog.data-v-6094af64 {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.dialog .dialog-title.data-v-6094af64 {
+  padding: 40rpx 30rpx 30rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-content.data-v-6094af64 {
+  padding: 40rpx 30rpx;
+}
+.dialog .dialog-content .dialog-input.data-v-6094af64 {
+  width: 100%;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+.dialog .dialog-content radio-group.data-v-6094af64 {
+  display: flex;
+  justify-content: space-around;
+}
+.dialog .dialog-content radio-group .radio-item.data-v-6094af64 {
+  font-size: 30rpx;
+  color: #333;
+}
+.dialog .dialog-footer.data-v-6094af64 {
+  display: flex;
+  border-top: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-footer .btn-dialog.data-v-6094af64 {
+  flex: 1;
+  padding: 30rpx 0;
+  font-size: 30rpx;
+  border-radius: 0;
+}
+.dialog .dialog-footer .btn-dialog.btn-cancel.data-v-6094af64 {
+  background: #fff;
+  color: #666;
+  border-right: 1rpx solid #f0f0f0;
+}
+.dialog .dialog-footer .btn-dialog.btn-confirm.data-v-6094af64 {
+  background: #fff;
+  color: #667eea;
+  font-weight: bold;
+}

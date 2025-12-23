@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.container.data-v-cda6518c {
+  min-height: 100vh;
+  padding: 20rpx;
+  background: #f5f5f5;
+}
+.balance-card.data-v-cda6518c {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10rpx 30rpx rgba(102, 126, 234, 0.3);
+}
+.balance-card .balance-info .balance-label.data-v-cda6518c {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 10rpx;
+}
+.balance-card .balance-info .balance-amount.data-v-cda6518c {
+  display: block;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #fff;
+}
+.balance-card .btn-recharge.data-v-cda6518c {
+  padding: 20rpx 40rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2rpx solid rgba(255, 255, 255, 0.6);
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+.record-list .list-header.data-v-cda6518c {
+  padding: 20rpx 0;
+}
+.record-list .list-header .header-title.data-v-cda6518c {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.record-list .record-item.data-v-cda6518c {
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.record-list .record-item .record-left.data-v-cda6518c {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.record-list .record-item .record-left .record-icon.data-v-cda6518c {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  font-size: 40rpx;
+}
+.record-list .record-item .record-left .record-icon.status-1.data-v-cda6518c {
+  background: #e8f5e8;
+}
+.record-list .record-item .record-left .record-icon.status-0.data-v-cda6518c {
+  background: #fff4e5;
+}
+.record-list .record-item .record-left .record-icon.status-2.data-v-cda6518c {
+  background: #f0f0f0;
+}
+.record-list .record-item .record-left .record-info.data-v-cda6518c {
+  flex: 1;
+}
+.record-list .record-item .record-left .record-info .record-title.data-v-cda6518c {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+.record-list .record-item .record-left .record-info .record-time.data-v-cda6518c {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 6rpx;
+}
+.record-list .record-item .record-left .record-info .record-type.data-v-cda6518c {
+  font-size: 24rpx;
+  color: #666;
+}
+.record-list .record-item .record-right .amount.data-v-cda6518c {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.record-list .record-item .record-right .amount.status-1.data-v-cda6518c {
+  color: #67c23a;
+}
+.record-list .record-item .record-right .amount.status-0.data-v-cda6518c {
+  color: #ff9900;
+}
+.record-list .record-item .record-right .amount.status-2.data-v-cda6518c {
+  color: #f56c6c;
+}

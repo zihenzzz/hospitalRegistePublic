@@ -1,0 +1,7 @@
+@charset "UTF-8";
+/* uni.scss - 全局样式变量 */
+/* 引入 uView UI 主题变量 */
+/* 自定义全局变量（可选） */
+.u-status-bar.data-v-124d52a9 {
+  width: 100%;
+}

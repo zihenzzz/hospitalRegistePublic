@@ -57,7 +57,7 @@
     />
 
     <!-- 加载中 -->
-    <u-loading v-if="loading" mode="circle" />
+    <u-loading-icon v-if="loading" mode="circle" />
   </view>
 </template>
 

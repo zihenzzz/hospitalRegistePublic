@@ -13,3 +13,4 @@ public interface POutpatienMapper
     public int deletePOutpatienByOutpatienIds(Long[] outpatienIds);
 }
 
+

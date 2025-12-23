@@ -41,3 +41,4 @@ Write-Host "  修改文件数: $modifiedFiles" -ForegroundColor Cyan
 Write-Host "`n请运行 'mvn clean install -DskipTests' 重新编译项目" -ForegroundColor Yellow
 
 
+

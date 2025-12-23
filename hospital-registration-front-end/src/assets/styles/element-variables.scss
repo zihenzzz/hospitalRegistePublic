@@ -1,31 +1,81 @@
 /**
-* I think element-ui's default theme color is too light for long-term use.
-* So I modified the default color and you can modify it to your liking.
-**/
+ * 医疗管理系统 - Element UI 主题定制
+ * 现代化设计风格
+ */
 
-/* theme color */
-$--color-primary: #1890ff;
-$--color-success: #13ce66;
-$--color-warning: #ffba00;
-$--color-danger: #ff4949;
-// $--color-info: #1E1E1E;
+/* 主题色 - 医疗青色 */
+$--color-primary: #0891B2;
+$--color-primary-light-1: #22A3C4;
+$--color-primary-light-2: #3BB5D6;
+$--color-primary-light-3: #55C7E8;
+$--color-primary-light-4: #6ED9FA;
+$--color-primary-light-5: #88EBFF;
+$--color-primary-light-6: #A1F4FF;
+$--color-primary-light-7: #BBFDFF;
+$--color-primary-light-8: #D4FFFF;
+$--color-primary-light-9: #EEFFFF;
 
-$--button-font-weight: 400;
+/* 功能色 */
+$--color-success: #10B981;
+$--color-warning: #F59E0B;
+$--color-danger: #EF4444;
+$--color-info: #6366F1;
 
-// $--color-text-regular: #1f2d3d;
+/* 文字颜色 */
+$--color-text-primary: #1E293B;
+$--color-text-regular: #475569;
+$--color-text-secondary: #64748B;
+$--color-text-placeholder: #94A3B8;
 
-$--border-color-light: #dfe4ed;
-$--border-color-lighter: #e6ebf5;
+/* 边框颜色 */
+$--border-color-base: #E2E8F0;
+$--border-color-light: #F1F5F9;
+$--border-color-lighter: #F8FAFC;
+$--border-color-extra-light: #FAFAFA;
 
-$--table-border: 1px solid #dfe6ec;
+/* 背景色 */
+$--background-color-base: #F8FAFC;
 
-/* icon font path, required */
+/* 按钮 */
+$--button-font-weight: 500;
+$--button-border-radius: 8px;
+$--button-padding-horizontal: 20px;
+$--button-medium-padding-horizontal: 18px;
+$--button-small-padding-horizontal: 14px;
+$--button-mini-padding-horizontal: 10px;
+
+/* 输入框 */
+$--input-border-radius: 8px;
+$--input-height: 40px;
+$--input-medium-height: 36px;
+$--input-small-height: 32px;
+$--input-mini-height: 28px;
+
+/* 卡片 */
+$--card-border-radius: 12px;
+$--card-padding: 20px;
+
+/* 表格 */
+$--table-border: 1px solid #E2E8F0;
+$--table-header-background-color: #F8FAFC;
+$--table-row-hover-background-color: #F1F5F9;
+
+/* 对话框 */
+$--dialog-border-radius: 16px;
+$--dialog-padding-primary: 24px;
+
+/* 消息提示 */
+$--message-border-radius: 10px;
+
+/* 标签页 */
+$--tabs-header-height: 44px;
+
+/* 字体路径 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
 
-// the :export directive is the magic sauce for webpack
-// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+// 导出主题色供 JS 使用
 :export {
   theme: $--color-primary;
 }

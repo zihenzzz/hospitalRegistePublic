@@ -68,14 +68,15 @@
     </view>
 
     <!-- 空状态 -->
-    <u-empty 
-      v-if="!loading && schedulingList.length === 0" 
-      text="暂无排班信息"
-      mode="list"
-    />
+    <view v-if="!loading && schedulingList.length === 0" class="empty-state">
+      <view class="empty-icon">📅</view>
+      <view class="empty-text">暂无排班信息</view>
+    </view>
 
     <!-- 加载中 -->
-    <u-loading v-if="loading" mode="circle" />
+    <view v-if="loading" class="loading-container">
+      <view class="loading-spinner"></view>
+    </view>
   </view>
 </template>
 
@@ -343,6 +344,50 @@ export default {
         color: #999;
         font-size: 28rpx;
       }
+    }
+  }
+  
+  /* 空状态样式 */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100rpx 0;
+    text-align: center;
+  }
+  
+  .empty-icon {
+    font-size: 100rpx;
+    margin-bottom: 30rpx;
+    opacity: 0.6;
+  }
+  
+  .empty-text {
+    font-size: 28rpx;
+    color: #999;
+  }
+  
+  /* 加载中样式 */
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60rpx 0;
+  }
+  
+  .loading-spinner {
+    width: 60rpx;
+    height: 60rpx;
+    border: 6rpx solid rgba(102, 126, 234, 0.2);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 }

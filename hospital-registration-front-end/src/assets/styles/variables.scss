@@ -1,54 +1,106 @@
-// base color
-$blue:#324157;
-$light-blue:#3A71A8;
-$red:#C03639;
-$pink: #E65D6E;
-$green: #30B08F;
-$tiffany: #4AB7BD;
-$yellow:#FEC171;
-$panGreen: #30B08F;
+// ========================================
+// 医疗管理系统 - 现代化设计变量
+// 灵感来源: Orano 企业风格
+// ========================================
 
-// 默认菜单主题风格
-$base-menu-color:#bfcbd9;
-$base-menu-color-active:#f4f4f5;
-$base-menu-background:#304156;
-$base-logo-title-color: #ffffff;
+// 主色调 - 医疗蓝绿色系
+$primary-color: #0891B2;           // 主色 - 青色
+$primary-light: #22D3EE;           // 主色浅
+$primary-dark: #0E7490;            // 主色深
+$secondary-color: #059669;         // 辅助色 - 绿色（健康）
+$accent-color: #6366F1;            // 强调色 - 靛蓝
 
-$base-menu-light-color:rgba(0,0,0,.70);
-$base-menu-light-background:#ffffff;
-$base-logo-light-title-color: #001529;
+// 兼容旧版按钮颜色变量
+$blue: #0891B2;
+$light-blue: #22D3EE;
+$red: #EF4444;
+$pink: #EC4899;
+$green: #10B981;
+$tiffany: #14B8A6;
+$yellow: #F59E0B;
+$panGreen: #10B981;
 
-$base-sub-menu-background:#1f2d3d;
-$base-sub-menu-hover:#001528;
+// 中性色
+$gray-50: #F8FAFC;
+$gray-100: #F1F5F9;
+$gray-200: #E2E8F0;
+$gray-300: #CBD5E1;
+$gray-400: #94A3B8;
+$gray-500: #64748B;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #1E293B;
+$gray-900: #0F172A;
 
-// 自定义暗色菜单风格
-/**
-$base-menu-color:hsla(0,0%,100%,.65);
-$base-menu-color-active:#fff;
-$base-menu-background:#001529;
-$base-logo-title-color: #ffffff;
+// 功能色
+$success-color: #10B981;
+$warning-color: #F59E0B;
+$danger-color: #EF4444;
+$info-color: #3B82F6;
 
-$base-menu-light-color:rgba(0,0,0,.70);
-$base-menu-light-background:#ffffff;
-$base-logo-light-title-color: #001529;
+// 背景色
+$bg-primary: #FFFFFF;
+$bg-secondary: #F8FAFC;
+$bg-tertiary: #F1F5F9;
 
-$base-sub-menu-background:#000c17;
-$base-sub-menu-hover:#001528;
-*/
+// 文字色
+$text-primary: #1E293B;
+$text-secondary: #64748B;
+$text-muted: #94A3B8;
+$text-inverse: #FFFFFF;
 
-$base-sidebar-width: 200px;
+// 边框
+$border-color: #E2E8F0;
+$border-radius-sm: 6px;
+$border-radius: 10px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
 
-// the :export directive is the magic sauce for webpack
-// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+// 阴影
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// ========================================
+// 侧边栏配置 - 现代浅色主题
+// ========================================
+
+// 默认菜单主题风格（深色）
+$base-menu-color: rgba(255, 255, 255, 0.85);
+$base-menu-color-active: #FFFFFF;
+$base-menu-background: linear-gradient(180deg, #0E7490 0%, #0891B2 50%, #06B6D4 100%);
+$base-menu-background-solid: #0891B2;
+$base-logo-title-color: #FFFFFF;
+
+// 浅色菜单主题
+$base-menu-light-color: $text-secondary;
+$base-menu-light-background: #FFFFFF;
+$base-logo-light-title-color: $primary-color;
+
+// 子菜单
+$base-sub-menu-background: rgba(0, 0, 0, 0.15);
+$base-sub-menu-hover: rgba(255, 255, 255, 0.1);
+
+// 侧边栏宽度
+$base-sidebar-width: 240px;
+
+// ========================================
+// 导出变量供 JS 使用
+// ========================================
 :export {
   menuColor: $base-menu-color;
   menuLightColor: $base-menu-light-color;
   menuColorActive: $base-menu-color-active;
-  menuBackground: $base-menu-background;
+  menuBackground: $base-menu-background-solid;
   menuLightBackground: $base-menu-light-background;
   subMenuBackground: $base-sub-menu-background;
   subMenuHover: $base-sub-menu-hover;
   sideBarWidth: $base-sidebar-width;
   logoTitleColor: $base-logo-title-color;
-  logoLightTitleColor: $base-logo-light-title-color
+  logoLightTitleColor: $base-logo-light-title-color;
+  primaryColor: $primary-color;
+  successColor: $success-color;
+  warningColor: $warning-color;
+  dangerColor: $danger-color;
 }

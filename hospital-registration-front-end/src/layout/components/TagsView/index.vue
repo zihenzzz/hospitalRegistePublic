@@ -239,44 +239,54 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: 40px;
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  background: #FFFFFF;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  
   .tags-view-wrapper {
     .tags-view-item {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 26px;
-      border: 1px solid #d8dce5;
-      color: #495060;
-      background: #fff;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
+      height: 28px;
+      line-height: 28px;
+      border: none;
+      color: #64748B;
+      background: #F8FAFC;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-left: 6px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      
       &:first-of-type {
-        margin-left: 15px;
+        margin-left: 8px;
       }
       &:last-of-type {
-        margin-right: 15px;
+        margin-right: 8px;
+      }
+      &:hover {
+        background: #F1F5F9;
+        color: #0891B2;
       }
       &.active {
-        background-color: #42b983;
-        color: #fff;
-        border-color: #42b983;
+        background: linear-gradient(135deg, #0891B2 0%, #0E7490 100%);
+        color: #FFFFFF;
+        box-shadow: 0 2px 8px rgba(8, 145, 178, 0.3);
+        
         &::before {
-          content: '';
-          background: #fff;
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          position: relative;
-          margin-right: 2px;
+          display: none;
+        }
+        
+        .el-icon-close:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+          color: #FFFFFF;
         }
       }
     }
@@ -288,22 +298,40 @@ export default {
 
   .contextmenu {
     margin: 0;
-    background: #fff;
+    background: #FFFFFF;
     z-index: 3000;
     position: absolute;
     list-style-type: none;
-    padding: 5px 0;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    padding: 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    min-width: 140px;
+    
     li {
       margin: 0;
-      padding: 7px 16px;
+      padding: 10px 12px;
       cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      
+      i {
+        font-size: 14px;
+        color: #94A3B8;
+      }
+      
       &:hover {
-        background: #eee;
+        background: #F1F5F9;
+        color: #0891B2;
+        
+        i {
+          color: #0891B2;
+        }
       }
     }
   }
@@ -311,25 +339,27 @@ export default {
 </style>
 
 <style lang="scss">
-//reset element css of el-icon-close
 .tags-view-wrapper {
   .tags-view-item {
     .el-icon-close {
       width: 16px;
       height: 16px;
-      vertical-align: 2px;
+      vertical-align: 0;
       border-radius: 50%;
       text-align: center;
-      transition: all .3s cubic-bezier(.645, .045, .355, 1);
+      transition: all 0.2s;
       transform-origin: 100% 50%;
+      margin-left: 4px;
+      font-size: 12px;
+      
       &:before {
-        transform: scale(.6);
+        transform: scale(0.8);
         display: inline-block;
-        vertical-align: -3px;
+        vertical-align: -1px;
       }
       &:hover {
-        background-color: #b4bccc;
-        color: #fff;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #EF4444;
       }
     }
   }

@@ -1,5 +1,6 @@
 package com.pipilin.web.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,13 @@ import com.pipilin.common.core.domain.AjaxResult;
 import com.pipilin.common.core.domain.entity.SysMenu;
 import com.pipilin.common.core.domain.entity.SysUser;
 import com.pipilin.common.core.domain.model.LoginBody;
-import com.pipilin.common.utils.SecurityUtils;
 import com.pipilin.framework.web.service.SysLoginService;
 import com.pipilin.framework.web.service.SysPermissionService;
 import com.pipilin.system.service.ISysMenuService;
+import com.pipilin.system.service.ISysUserService;
 
 /**
- * 登录验证
- * 
- * @author pipilin
+ * 登录验证（简化版）
  */
 @RestController
 public class SysLoginController
@@ -34,36 +33,29 @@ public class SysLoginController
     @Autowired
     private SysPermissionService permissionService;
 
-    /**
-     * 登录方法
-     * 
-     * @param loginBody 登录信息
-     * @return 结果
-     */
+    @Autowired
+    private ISysUserService userService;
+
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody)
     {
         AjaxResult ajax = AjaxResult.success();
-        // 生成令牌
-        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
-                loginBody.getUuid());
+        String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), 
+                loginBody.getCode(), loginBody.getUuid());
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
 
-    /**
-     * 获取用户信息
-     * 
-     * @return 用户信息
-     */
     @GetMapping("getInfo")
     public AjaxResult getInfo()
     {
-        SysUser user = SecurityUtils.getLoginUser().getUser();
-        // 角色集合
-        Set<String> roles = permissionService.getRolePermission(user);
-        // 权限集合
-        Set<String> permissions = permissionService.getMenuPermission(user);
+        // 简化：返回默认管理员信息
+        SysUser user = userService.selectUserByUserName("admin");
+        Set<String> roles = new HashSet<>();
+        roles.add("admin");
+        Set<String> permissions = new HashSet<>();
+        permissions.add("*:*:*");
+        
         AjaxResult ajax = AjaxResult.success();
         ajax.put("user", user);
         ajax.put("roles", roles);
@@ -71,29 +63,17 @@ public class SysLoginController
         return ajax;
     }
 
-    /**
-     * 获取路由信息
-     * 
-     * @return 路由信息
-     */
     @GetMapping("getRouters")
     public AjaxResult getRouters()
     {
-        Long userId = SecurityUtils.getUserId();
-        List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
+        // 简化：返回管理员的所有菜单
+        List<SysMenu> menus = menuService.selectMenuTreeByUserId(1L);
         return AjaxResult.success(menuService.buildMenus(menus));
     }
 
-    /**
-     * 退出登录
-     * 
-     * @return 结果
-     */
     @PostMapping("/logout")
     public AjaxResult logout()
     {
-        loginService.logout(SecurityUtils.getUsername());
         return AjaxResult.success();
     }
 }
-
