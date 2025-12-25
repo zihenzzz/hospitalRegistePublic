@@ -110,14 +110,17 @@ export default {
   mounted() {
     if (this.drag && !this.disabled) {
       this.$nextTick(() => {
-        const element = this.$refs.imageUpload?.$el?.querySelector('.el-upload-list')
-        Sortable.create(element, {
-          onEnd: (evt) => {
-            const movedItem = this.fileList.splice(evt.oldIndex, 1)[0]
-            this.fileList.splice(evt.newIndex, 0, movedItem)
-            this.$emit("input", this.listToString(this.fileList))
-          }
-        })
+        const uploadRef = this.$refs.imageUpload
+        const element = uploadRef && uploadRef.$el ? uploadRef.$el.querySelector('.el-upload-list') : null
+        if (element) {
+          Sortable.create(element, {
+            onEnd: (evt) => {
+              const movedItem = this.fileList.splice(evt.oldIndex, 1)[0]
+              this.fileList.splice(evt.newIndex, 0, movedItem)
+              this.$emit("input", this.listToString(this.fileList))
+            }
+          })
+        }
       })
     }
   },

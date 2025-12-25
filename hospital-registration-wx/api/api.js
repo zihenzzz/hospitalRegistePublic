@@ -47,6 +47,11 @@ export const cancelRegistration = (registrationId) => {
   return del(`/system/registration/${registrationId}`)
 }
 
+// 删除挂号（别名）
+export const delRegistration = (registrationId) => {
+  return del(`/system/registration/${registrationId}`)
+}
+
 // ==================== 门诊相关 ====================
 // 获取门诊列表
 export const getOutpatienList = (params) => {
@@ -102,3 +107,14 @@ export const deleteEvaluate = (evaluateId) => {
 }
 
 
+
+// ==================== AI智能助手 ====================
+// AI对话
+export const aiChat = (data) => {
+  return post('/ai/assistant/chat', data)
+}
+
+// 执行AI确认操作
+export const aiExecuteAction = (data) => {
+  return post('/ai/assistant/execute', data)
+}

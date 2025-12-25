@@ -1,70 +1,146 @@
 <template>
   <view class="container">
     <!-- 用户信息卡片 -->
-    <view class="user-card">
-      <view class="user-info">
-        <image :src="userInfo.avatar || defaultAvatar" class="avatar"></image>
-        <view class="info">
-          <text class="nickname">{{ userInfo.nickName || '未登录' }}</text>
-          <text class="phone">{{ userInfo.phonenumber || '点击登录' }}</text>
+    <view class="user-section">
+      <view class="user-bg"></view>
+      <view class="user-card">
+        <view class="user-info">
+          <view class="avatar-wrap">
+            <image :src="userInfo.avatar || defaultAvatar" class="avatar"></image>
+            <view class="avatar-badge" v-if="isLogin">
+              <u-icon name="checkmark" color="#fff" size="20"></u-icon>
+            </view>
+          </view>
+          <view class="info">
+            <text class="nickname">{{ userInfo.nickName || '未登录' }}</text>
+            <text class="phone" v-if="isLogin">{{ formatPhone(userInfo.phonenumber) }}</text>
+            <text class="phone" v-else @click="toLogin">点击登录账号</text>
+          </view>
+        </view>
+        <view class="user-action" @click="isLogin ? toEditInfo() : toLogin()">
+          <text>{{ isLogin ? '编辑资料' : '立即登录' }}</text>
+          <u-icon name="arrow-right" color="#fff" size="28"></u-icon>
         </view>
       </view>
-      <view class="user-actions">
-        <button class="btn-login" v-if="!isLogin" @click="toLogin">登录</button>
-        <button class="btn-edit" v-else @click="toEditInfo">编辑资料</button>
+      
+      <!-- 统计数据 -->
+      <view class="stats-card" v-if="isLogin">
+        <view class="stat-item">
+          <text class="stat-value">{{ stats.registration || 0 }}</text>
+          <text class="stat-label">挂号次数</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{ stats.visitors || 0 }}</text>
+          <text class="stat-label">就诊人</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">¥{{ stats.balance || '0.00' }}</text>
+          <text class="stat-label">账户余额</text>
+        </view>
       </view>
     </view>
 
-    <!-- 功能列表 -->
-    <view class="menu-list">
-      <view class="menu-section">
-        <view class="menu-item" @click="toPage('/pages/registrationRecord/registrationRecord')">
-          <view class="menu-left">
-            <text class="menu-icon">📋</text>
-            <text class="menu-name">挂号记录</text>
-          </view>
-          <text class="menu-arrow">></text>
+    <!-- 功能菜单 -->
+    <view class="menu-section">
+      <view class="menu-group">
+        <view class="group-title">
+          <view class="title-icon"></view>
+          <text>我的服务</text>
         </view>
-        <view class="menu-item" @click="toPage('/pages/myVisitors/myVisitors')">
-          <view class="menu-left">
-            <text class="menu-icon">👥</text>
-            <text class="menu-name">就诊人管理</text>
+        <view class="menu-list">
+          <view class="menu-item" @click="toPage('/pages/registrationRecord/registrationRecord')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                <text>📋</text>
+              </view>
+              <text class="menu-name">挂号记录</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
           </view>
-          <text class="menu-arrow">></text>
-        </view>
-        <view class="menu-item" @click="toPage('/pages/payRecord/payRecord')">
-          <view class="menu-left">
-            <text class="menu-icon">💰</text>
-            <text class="menu-name">充值记录</text>
+          <view class="menu-item" @click="toPage('/pages/myVisitors/myVisitors')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                <text>👥</text>
+              </view>
+              <text class="menu-name">就诊人管理</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
           </view>
-          <text class="menu-arrow">></text>
-        </view>
-      </view>
-
-      <view class="menu-section">
-        <view class="menu-item" @click="handleMenuClick('collect')">
-          <view class="menu-left">
-            <text class="menu-icon">⭐</text>
-            <text class="menu-name">我的收藏</text>
+          <view class="menu-item" @click="toPage('/pages/payRecord/payRecord')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #059669, #10b981);">
+                <text>💰</text>
+              </view>
+              <text class="menu-name">充值记录</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
           </view>
-          <text class="menu-arrow">></text>
-        </view>
-        <view class="menu-item" @click="handleMenuClick('evaluate')">
-          <view class="menu-left">
-            <text class="menu-icon">💬</text>
-            <text class="menu-name">我的评价</text>
-          </view>
-          <text class="menu-arrow">></text>
         </view>
       </view>
 
-      <view class="menu-section">
-        <view class="menu-item" @click="handleMenuClick('about')">
-          <view class="menu-left">
-            <text class="menu-icon">ℹ️</text>
-            <text class="menu-name">关于我们</text>
+      <view class="menu-group">
+        <view class="group-title">
+          <view class="title-icon"></view>
+          <text>更多功能</text>
+        </view>
+        <view class="menu-list">
+          <view class="menu-item" @click="toPage('/pages/aiAssistant/aiAssistant')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                <text>🤖</text>
+              </view>
+              <text class="menu-name">AI智能助手</text>
+            </view>
+            <view class="menu-tag">NEW</view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
           </view>
-          <text class="menu-arrow">></text>
+          <view class="menu-item" @click="handleMenuClick('collect')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
+                <text>⭐</text>
+              </view>
+              <text class="menu-name">我的收藏</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
+          </view>
+          <view class="menu-item" @click="handleMenuClick('evaluate')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                <text>💬</text>
+              </view>
+              <text class="menu-name">我的评价</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-group">
+        <view class="group-title">
+          <view class="title-icon"></view>
+          <text>其他</text>
+        </view>
+        <view class="menu-list">
+          <view class="menu-item" @click="handleMenuClick('about')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #64748b, #94a3b8);">
+                <text>ℹ️</text>
+              </view>
+              <text class="menu-name">关于我们</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
+          </view>
+          <view class="menu-item" @click="handleMenuClick('feedback')">
+            <view class="menu-left">
+              <view class="menu-icon" style="background: linear-gradient(135deg, #0ea5e9, #38bdf8);">
+                <text>📝</text>
+              </view>
+              <text class="menu-name">意见反馈</text>
+            </view>
+            <u-icon name="arrow-right" color="#cbd5e1" size="28"></u-icon>
+          </view>
         </view>
       </view>
     </view>
@@ -73,6 +149,9 @@
     <view class="logout-section" v-if="isLogin">
       <button class="btn-logout" @click="handleLogout">退出登录</button>
     </view>
+
+    <!-- 底部安全间距 -->
+    <view class="safe-bottom"></view>
   </view>
 </template>
 
@@ -84,8 +163,13 @@ export default {
   data() {
     return {
       userInfo: {},
-      defaultAvatar: config.defaultAvatar,
-      isLogin: false
+      defaultAvatar: '/static/default-avatar.png',
+      isLogin: false,
+      stats: {
+        registration: 0,
+        visitors: 0,
+        balance: '0.00'
+      }
     }
   },
   onShow() {
@@ -95,7 +179,6 @@ export default {
     }
   },
   methods: {
-    // 检查登录状态
     checkLogin() {
       const token = uni.getStorageSync(config.cacheKeys.token)
       this.isLogin = !!token
@@ -104,72 +187,59 @@ export default {
       }
     },
     
-    // 加载用户信息
     async loadUserInfo() {
       try {
         const res = await getUserInfo()
         if (res.code === 200) {
           this.userInfo = res.user
           uni.setStorageSync(config.cacheKeys.userInfo, res.user)
+          // 更新统计数据
+          if (res.user.balance) {
+            this.stats.balance = res.user.balance
+          }
         }
       } catch (error) {
         console.error('获取用户信息失败', error)
       }
     },
     
-    // 跳转登录
+    formatPhone(phone) {
+      if (!phone) return ''
+      return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+    },
+    
     toLogin() {
-      uni.showToast({
-        title: '登录功能开发中',
-        icon: 'none'
-      })
+      uni.showToast({ title: '请使用微信授权登录', icon: 'none' })
     },
     
-    // 编辑资料
     toEditInfo() {
-      uni.navigateTo({
-        url: '/pages/user/info/info'
-      })
+      uni.navigateTo({ url: '/pages/user/info/info' })
     },
     
-    // 跳转页面
     toPage(url) {
-      if (!this.isLogin) {
-        uni.showToast({
-          title: '请先登录',
-          icon: 'none'
-        })
+      if (!this.isLogin && url !== '/pages/aiAssistant/aiAssistant') {
+        uni.showToast({ title: '请先登录', icon: 'none' })
         return
       }
-      uni.navigateTo({
-        url: url
-      })
+      uni.navigateTo({ url: url })
     },
     
-    // 菜单点击
     handleMenuClick(type) {
-      uni.showToast({
-        title: '功能开发中',
-        icon: 'none'
-      })
+      uni.showToast({ title: '功能开发中', icon: 'none' })
     },
     
-    // 退出登录
     handleLogout() {
       uni.showModal({
         title: '提示',
         content: '确定要退出登录吗？',
+        confirmColor: '#10b981',
         success: (res) => {
           if (res.confirm) {
-            // 清除本地存储
             uni.removeStorageSync(config.cacheKeys.token)
             uni.removeStorageSync(config.cacheKeys.userInfo)
             this.isLogin = false
             this.userInfo = {}
-            uni.showToast({
-              title: '已退出登录',
-              icon: 'success'
-            })
+            uni.showToast({ title: '已退出登录', icon: 'success' })
           }
         }
       })
@@ -179,115 +249,243 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$primary: #10b981;
+$primary-light: #34d399;
+$primary-dark: #059669;
+$dark: #0f172a;
+$gray: #64748b;
+
 .container {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #f1f5f9;
 }
 
-.user-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40rpx 30rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.user-section {
+  position: relative;
+  padding-bottom: 24rpx;
   
-  .user-info {
+  .user-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 320rpx;
+    background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  }
+  
+  .user-card {
+    position: relative;
+    margin: 60rpx 32rpx 0;
+    padding: 32rpx;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     
-    .avatar {
-      width: 120rpx;
-      height: 120rpx;
-      border-radius: 50%;
-      margin-right: 24rpx;
-      border: 4rpx solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .info {
+    .user-info {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       
-      .nickname {
-        font-size: 36rpx;
-        font-weight: bold;
-        color: #fff;
-        margin-bottom: 10rpx;
+      .avatar-wrap {
+        position: relative;
+        
+        .avatar {
+          width: 120rpx;
+          height: 120rpx;
+          border-radius: 50%;
+          border: 4rpx solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .avatar-badge {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 36rpx;
+          height: 36rpx;
+          background: #10b981;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 4rpx solid #fff;
+        }
       }
       
-      .phone {
-        font-size: 28rpx;
-        color: rgba(255, 255, 255, 0.8);
+      .info {
+        margin-left: 24rpx;
+        
+        .nickname {
+          font-size: 36rpx;
+          font-weight: bold;
+          color: #fff;
+          display: block;
+          margin-bottom: 8rpx;
+        }
+        
+        .phone {
+          font-size: 28rpx;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+    
+    .user-action {
+      display: flex;
+      align-items: center;
+      gap: 8rpx;
+      padding: 16rpx 24rpx;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 32rpx;
+      
+      text {
+        font-size: 26rpx;
+        color: #fff;
       }
     }
   }
   
-  .user-actions {
-    .btn-login,
-    .btn-edit {
-      padding: 16rpx 32rpx;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2rpx solid rgba(255, 255, 255, 0.6);
-      border-radius: 40rpx;
-      color: #fff;
-      font-size: 28rpx;
+  .stats-card {
+    position: relative;
+    margin: 24rpx 32rpx 0;
+    padding: 32rpx;
+    background: #fff;
+    border-radius: 24rpx;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+    
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .stat-value {
+        font-size: 36rpx;
+        font-weight: bold;
+        color: $dark;
+        margin-bottom: 8rpx;
+      }
+      
+      .stat-label {
+        font-size: 24rpx;
+        color: $gray;
+      }
+    }
+    
+    .stat-divider {
+      width: 1rpx;
+      height: 60rpx;
+      background: #e2e8f0;
     }
   }
 }
 
-.menu-list {
-  .menu-section {
-    margin: 20rpx 0;
-    background: #fff;
-    border-radius: 16rpx;
-    overflow: hidden;
+.menu-section {
+  padding: 0 32rpx;
+  
+  .menu-group {
+    margin-bottom: 24rpx;
     
-    .menu-item {
+    .group-title {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 30rpx;
-      border-bottom: 1rpx solid #f0f0f0;
+      gap: 12rpx;
+      margin-bottom: 16rpx;
+      padding-left: 8rpx;
       
-      &:last-child {
-        border-bottom: none;
+      .title-icon {
+        width: 6rpx;
+        height: 28rpx;
+        background: linear-gradient(180deg, $primary, $primary-light);
+        border-radius: 3rpx;
       }
       
-      .menu-left {
+      text {
+        font-size: 28rpx;
+        font-weight: 600;
+        color: $dark;
+      }
+    }
+    
+    .menu-list {
+      background: #fff;
+      border-radius: 24rpx;
+      overflow: hidden;
+      box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+      
+      .menu-item {
         display: flex;
         align-items: center;
+        padding: 28rpx 24rpx;
+        border-bottom: 1rpx solid #f1f5f9;
         
-        .menu-icon {
-          font-size: 40rpx;
-          margin-right: 20rpx;
+        &:last-child {
+          border-bottom: none;
         }
         
-        .menu-name {
-          font-size: 30rpx;
-          color: #333;
+        &:active {
+          background: #f8fafc;
         }
-      }
-      
-      .menu-arrow {
-        font-size: 28rpx;
-        color: #999;
+        
+        .menu-left {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          gap: 20rpx;
+          
+          .menu-icon {
+            width: 72rpx;
+            height: 72rpx;
+            border-radius: 18rpx;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            text {
+              font-size: 32rpx;
+            }
+          }
+          
+          .menu-name {
+            font-size: 30rpx;
+            color: $dark;
+          }
+        }
+        
+        .menu-tag {
+          padding: 6rpx 12rpx;
+          background: linear-gradient(135deg, #ef4444, #f87171);
+          border-radius: 8rpx;
+          font-size: 20rpx;
+          color: #fff;
+          margin-right: 16rpx;
+        }
       }
     }
   }
 }
 
 .logout-section {
-  padding: 40rpx 30rpx;
+  padding: 40rpx 32rpx;
   
   .btn-logout {
     width: 100%;
+    height: 96rpx;
+    line-height: 96rpx;
     background: #fff;
-    color: #f56c6c;
-    border: 1rpx solid #f56c6c;
-    border-radius: 40rpx;
-    padding: 24rpx 0;
+    color: #ef4444;
+    border: 2rpx solid #fecaca;
+    border-radius: 48rpx;
     font-size: 32rpx;
+    font-weight: 500;
+    
+    &:active {
+      background: #fef2f2;
+    }
   }
 }
+
+.safe-bottom {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
 </style>
-
-

@@ -41,6 +41,22 @@ export const constantRoutes = [
       }
     ]
   },
+  // 用户门户 - 默认首页（公开访问）
+  {
+    path: '/',
+    component: () => import('@/views/portal/index'),
+    name: 'Portal',
+    hidden: true,
+    meta: { title: '智慧医疗平台' }
+  },
+  // 数据大屏（公开访问）
+  {
+    path: '/dashboard',
+    component: () => import('@/views/dashboard/DataScreen'),
+    name: 'DataScreen',
+    hidden: true,
+    meta: { title: '数据大屏' }
+  },
   {
     path: '/login',
     component: () => import('@/views/login'),
@@ -61,16 +77,17 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
+  // 管理后台入口
   {
-    path: '',
+    path: '/admin',
     component: Layout,
-    redirect: 'index',
+    redirect: '/admin/index',
     children: [
       {
         path: 'index',
         component: () => import('@/views/index'),
-        name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        name: 'AdminIndex',
+        meta: { title: '管理首页', icon: 'dashboard', affix: true }
       }
     ]
   },

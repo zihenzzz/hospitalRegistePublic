@@ -1,29 +1,24 @@
 package com.pipilin.framework.aspectj;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import com.pipilin.common.annotation.RateLimiter;
 import com.pipilin.common.enums.LimitType;
 import com.pipilin.common.exception.ServiceException;
 import com.pipilin.common.utils.ServletUtils;
-import com.pipilin.common.utils.StringUtils;
 import com.pipilin.common.utils.ip.IpUtils;
 
 /**
- * 限流处理
- *
- * @author  931708230@qq.com
+ * 限流处理（内存存储版）
  */
 @Aspect
 @Component
@@ -31,20 +26,12 @@ public class RateLimiterAspect
 {
     private static final Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);
 
-    private RedisTemplate<Object, Object> redisTemplate;
+    // 限流计数器
+    private final Map<String, RateLimitEntry> limitCache = new ConcurrentHashMap<>();
 
-    private RedisScript<Long> limitScript;
-
-    @Autowired
-    public void setRedisTemplate1(RedisTemplate<Object, Object> redisTemplate)
-    {
-        this.redisTemplate = redisTemplate;
-    }
-
-    @Autowired
-    public void setLimitScript(RedisScript<Long> limitScript)
-    {
-        this.limitScript = limitScript;
+    private static class RateLimitEntry {
+        AtomicInteger count = new AtomicInteger(0);
+        long startTime = System.currentTimeMillis();
     }
 
     @Before("@annotation(rateLimiter)")
@@ -54,15 +41,25 @@ public class RateLimiterAspect
         int count = rateLimiter.count();
 
         String combineKey = getCombineKey(rateLimiter, point);
-        List<Object> keys = Collections.singletonList(combineKey);
+        
         try
         {
-            Long number = redisTemplate.execute(limitScript, keys, count, time);
-            if (StringUtils.isNull(number) || number.intValue() > count)
+            RateLimitEntry entry = limitCache.computeIfAbsent(combineKey, k -> new RateLimitEntry());
+            
+            long now = System.currentTimeMillis();
+            // 如果超过时间窗口，重置计数器
+            if (now - entry.startTime > time * 1000L) {
+                entry.count.set(0);
+                entry.startTime = now;
+            }
+            
+            int current = entry.count.incrementAndGet();
+            
+            if (current > count)
             {
                 throw new ServiceException("访问过于频繁，请稍候再试");
             }
-            log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, number.intValue(), combineKey);
+            log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, current, combineKey);
         }
         catch (ServiceException e)
         {

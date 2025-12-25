@@ -1,66 +1,88 @@
 <template>
   <view class="container">
-    <!-- 科室信息 -->
-    <view class="section-info card" v-if="sectionName">
-      <text class="section-title">{{ sectionName }}</text>
-      <text class="section-desc">请选择医生和就诊时间</text>
-    </view>
-
-    <!-- 日期选择 -->
-    <view class="date-selector card">
-      <view class="date-list">
-        <view 
-          class="date-item"
-          :class="{'active': selectedDate === item.date}"
-          v-for="(item, index) in dateList" 
-          :key="index"
-          @click="selectDate(item.date)"
-        >
-          <text class="date-week">{{ item.week }}</text>
-          <text class="date-day">{{ item.day }}</text>
+    <!-- 顶部科室信息 -->
+    <view class="header-section">
+      <view class="header-bg"></view>
+      <view class="header-content">
+        <view class="section-info" v-if="sectionName">
+          <text class="section-name">{{ sectionName }}</text>
+          <text class="section-tip">请选择医生和就诊时间</text>
+        </view>
+        <view class="section-info" v-else>
+          <text class="section-name">预约挂号</text>
+          <text class="section-tip">选择科室开始预约</text>
         </view>
       </view>
     </view>
 
+    <!-- 日期选择 -->
+    <view class="date-section">
+      <scroll-view scroll-x class="date-scroll" :show-scrollbar="false">
+        <view class="date-list">
+          <view 
+            class="date-item"
+            :class="{ 'active': selectedDate === item.date }"
+            v-for="(item, index) in dateList" 
+            :key="index"
+            @click="selectDate(item.date)"
+          >
+            <text class="date-week">{{ item.week }}</text>
+            <text class="date-day">{{ item.day }}</text>
+            <view class="date-dot" v-if="hasScheduling(item.date)"></view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
     <!-- 排班列表 -->
-    <view class="scheduling-list">
-      <view class="time-section" v-for="(timeSlot, index) in timeSlots" :key="index">
+    <view class="scheduling-section">
+      <view class="time-group" v-for="(timeSlot, index) in timeSlots" :key="index">
         <view class="time-header">
-          <text class="time-title">{{ timeSlot.label }}</text>
-          <text class="time-desc">{{ timeSlot.time }}</text>
+          <view class="time-icon">
+            <text v-if="timeSlot.value === '1'">🌅</text>
+            <text v-else-if="timeSlot.value === '2'">☀️</text>
+            <text v-else>🌙</text>
+          </view>
+          <view class="time-info">
+            <text class="time-label">{{ timeSlot.label }}</text>
+            <text class="time-range">{{ timeSlot.time }}</text>
+          </view>
         </view>
         
         <view class="doctor-list">
           <view 
-            class="doctor-item card"
+            class="doctor-card"
             v-for="(doctor, idx) in getSchedulingByTime(timeSlot.value)" 
             :key="idx"
             @click="selectDoctor(doctor)"
           >
+            <view class="doctor-avatar">
+              <text>👨‍⚕️</text>
+            </view>
             <view class="doctor-info">
-              <view class="doctor-name">{{ doctor.doctorName }}</view>
-              <view class="doctor-title">{{ doctor.doctorTitle || '主治医师' }}</view>
-              <view class="doctor-desc">擅长：{{ doctor.specialty || '常见病诊治' }}</view>
+              <view class="doctor-top">
+                <text class="doctor-name">{{ doctor.doctorName }}</text>
+                <text class="doctor-title">{{ doctor.doctorTitle || '主治医师' }}</text>
+              </view>
+              <text class="doctor-specialty">擅长：{{ doctor.specialty || '常见病诊治' }}</text>
             </view>
             <view class="doctor-action">
-              <view class="available-num">
-                <text v-if="doctor.availableNum > doctor.registeredNum" style="color: #67c23a;">
+              <view class="action-top">
+                <text class="fee">¥{{ doctor.registrationFee }}</text>
+              </view>
+              <view 
+                class="book-btn" 
+                :class="{ 'disabled': doctor.availableNum <= doctor.registeredNum }"
+              >
+                <text v-if="doctor.availableNum > doctor.registeredNum">
                   余{{ doctor.availableNum - doctor.registeredNum }}号
                 </text>
-                <text v-else style="color: #f56c6c;">已约满</text>
+                <text v-else>已约满</text>
               </view>
-              <view class="fee">¥{{ doctor.registrationFee }}</view>
-              <button 
-                class="btn-book" 
-                :disabled="doctor.availableNum <= doctor.registeredNum"
-                size="mini"
-              >
-                {{ doctor.availableNum <= doctor.registeredNum ? '约满' : '预约' }}
-              </button>
             </view>
           </view>
           
-          <view v-if="getSchedulingByTime(timeSlot.value).length === 0" class="empty-tip">
+          <view v-if="getSchedulingByTime(timeSlot.value).length === 0" class="empty-slot">
             <text>该时段暂无排班</text>
           </view>
         </view>
@@ -70,13 +92,18 @@
     <!-- 空状态 -->
     <view v-if="!loading && schedulingList.length === 0" class="empty-state">
       <view class="empty-icon">📅</view>
-      <view class="empty-text">暂无排班信息</view>
+      <text class="empty-title">暂无排班信息</text>
+      <text class="empty-desc">请选择其他日期或科室查看</text>
     </view>
 
     <!-- 加载中 -->
-    <view v-if="loading" class="loading-container">
+    <view v-if="loading" class="loading-state">
       <view class="loading-spinner"></view>
+      <text>加载中...</text>
     </view>
+
+    <!-- 底部安全间距 -->
+    <view class="safe-bottom"></view>
   </view>
 </template>
 
@@ -108,7 +135,6 @@ export default {
     this.loadScheduling()
   },
   methods: {
-    // 初始化日期列表（未来7天）
     initDateList() {
       const weekDays = ['日', '一', '二', '三', '四', '五', '六']
       const today = new Date()
@@ -124,7 +150,7 @@ export default {
         this.dateList.push({
           date: `${date.getFullYear()}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`,
           day: `${month}/${day}`,
-          week: i === 0 ? '今天' : `周${week}`,
+          week: i === 0 ? '今天' : (i === 1 ? '明天' : `周${week}`),
           fullDate: date
         })
       }
@@ -132,49 +158,43 @@ export default {
       this.selectedDate = this.dateList[0].date
     },
     
-    // 选择日期
     selectDate(date) {
       this.selectedDate = date
       this.loadScheduling()
     },
     
-    // 加载排班数据
+    hasScheduling(date) {
+      // 可以根据实际数据判断该日期是否有排班
+      return true
+    },
+    
     async loadScheduling() {
       try {
         this.loading = true
         const res = await getSchedulingList({
           sectionId: this.sectionId,
           schedulingDate: this.selectedDate,
-          status: '0' // 只显示启用的排班
+          status: '0'
         })
         this.schedulingList = res.rows || []
       } catch (error) {
         console.error('加载排班失败', error)
-        uni.showToast({
-          title: '加载失败',
-          icon: 'none'
-        })
+        uni.showToast({ title: '加载失败', icon: 'none' })
       } finally {
         this.loading = false
       }
     },
     
-    // 根据时段筛选排班
     getSchedulingByTime(timeValue) {
       return this.schedulingList.filter(item => item.schedulingTime === timeValue)
     },
     
-    // 选择医生预约
     selectDoctor(doctor) {
       if (doctor.availableNum <= doctor.registeredNum) {
-        uni.showToast({
-          title: '该时段已约满',
-          icon: 'none'
-        })
+        uni.showToast({ title: '该时段已约满', icon: 'none' })
         return
       }
       
-      // 跳转到预约信息填写页面
       uni.navigateTo({
         url: `/pages/subscribeInfo/subscribeInfo?schedulingId=${doctor.schedulingId}&doctorName=${doctor.doctorName}&date=${this.selectedDate}&fee=${doctor.registrationFee}`
       })
@@ -184,121 +204,212 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$primary: #0891b2;
+$primary-light: #06b6d4;
+$dark: #0f172a;
+$gray: #64748b;
+
 .container {
   min-height: 100vh;
-  padding: 20rpx;
-  background: #f5f5f5;
+  background: #f1f5f9;
 }
 
-.section-info {
-  padding: 30rpx;
-  margin-bottom: 20rpx;
+.header-section {
+  position: relative;
   
-  .section-title {
-    font-size: 36rpx;
-    font-weight: bold;
-    color: #333;
-    display: block;
-    margin-bottom: 10rpx;
+  .header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200rpx;
+    background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
   }
   
-  .section-desc {
-    font-size: 28rpx;
-    color: #999;
+  .header-content {
+    position: relative;
+    padding: 60rpx 32rpx 32rpx;
+    
+    .section-info {
+      .section-name {
+        font-size: 40rpx;
+        font-weight: bold;
+        color: #fff;
+        display: block;
+        margin-bottom: 8rpx;
+      }
+      
+      .section-tip {
+        font-size: 26rpx;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
   }
 }
 
-.date-selector {
-  padding: 20rpx;
-  margin-bottom: 20rpx;
+.date-section {
+  margin: -20rpx 32rpx 24rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+  
+  .date-scroll {
+    white-space: nowrap;
+  }
   
   .date-list {
-    display: flex;
-    justify-content: space-between;
+    display: inline-flex;
+    gap: 16rpx;
     
     .date-item {
-      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20rpx 10rpx;
-      margin: 0 5rpx;
-      border-radius: 12rpx;
-      background: #f5f5f5;
+      padding: 20rpx 28rpx;
+      border-radius: 16rpx;
+      background: #f8fafc;
+      position: relative;
       transition: all 0.3s;
       
       &.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, $primary, $primary-light);
         
-        .date-week,
-        .date-day {
+        .date-week, .date-day {
           color: #fff;
         }
       }
       
+      &:active {
+        transform: scale(0.98);
+      }
+      
       .date-week {
         font-size: 24rpx;
-        color: #999;
+        color: $gray;
         margin-bottom: 8rpx;
       }
       
       .date-day {
-        font-size: 28rpx;
-        color: #333;
+        font-size: 30rpx;
         font-weight: bold;
+        color: $dark;
+      }
+      
+      .date-dot {
+        position: absolute;
+        bottom: 10rpx;
+        width: 8rpx;
+        height: 8rpx;
+        background: #10b981;
+        border-radius: 50%;
       }
     }
   }
 }
 
-.scheduling-list {
-  .time-section {
-    margin-bottom: 30rpx;
+.scheduling-section {
+  padding: 0 32rpx;
+  
+  .time-group {
+    margin-bottom: 32rpx;
     
     .time-header {
       display: flex;
       align-items: center;
+      gap: 16rpx;
       margin-bottom: 20rpx;
       
-      .time-title {
-        font-size: 32rpx;
-        font-weight: bold;
-        color: #333;
-        margin-right: 15rpx;
+      .time-icon {
+        width: 56rpx;
+        height: 56rpx;
+        background: #fff;
+        border-radius: 14rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
+        
+        text {
+          font-size: 28rpx;
+        }
       }
       
-      .time-desc {
-        font-size: 24rpx;
-        color: #999;
+      .time-info {
+        .time-label {
+          font-size: 32rpx;
+          font-weight: bold;
+          color: $dark;
+          display: block;
+        }
+        
+        .time-range {
+          font-size: 24rpx;
+          color: $gray;
+        }
       }
     }
     
     .doctor-list {
-      .doctor-item {
-        padding: 24rpx;
-        margin-bottom: 20rpx;
+      display: flex;
+      flex-direction: column;
+      gap: 16rpx;
+      
+      .doctor-card {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        padding: 28rpx;
+        background: #fff;
+        border-radius: 20rpx;
+        box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+        
+        &:active {
+          background: #f8fafc;
+        }
+        
+        .doctor-avatar {
+          width: 88rpx;
+          height: 88rpx;
+          background: linear-gradient(135deg, #ecfeff, #f0fdfa);
+          border-radius: 22rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 20rpx;
+          
+          text {
+            font-size: 44rpx;
+          }
+        }
         
         .doctor-info {
           flex: 1;
           
-          .doctor-name {
-            font-size: 32rpx;
-            font-weight: bold;
-            color: #333;
+          .doctor-top {
+            display: flex;
+            align-items: center;
+            gap: 12rpx;
             margin-bottom: 8rpx;
+            
+            .doctor-name {
+              font-size: 32rpx;
+              font-weight: bold;
+              color: $dark;
+            }
+            
+            .doctor-title {
+              font-size: 24rpx;
+              color: $primary;
+              background: #ecfeff;
+              padding: 4rpx 12rpx;
+              border-radius: 8rpx;
+            }
           }
           
-          .doctor-title {
+          .doctor-specialty {
             font-size: 26rpx;
-            color: #666;
-            margin-bottom: 12rpx;
-          }
-          
-          .doctor-desc {
-            font-size: 24rpx;
-            color: #999;
+            color: $gray;
+            display: block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -309,87 +420,102 @@ export default {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-          justify-content: space-between;
-          
-          .available-num {
-            font-size: 24rpx;
-            font-weight: bold;
-          }
+          gap: 12rpx;
           
           .fee {
-            font-size: 32rpx;
-            color: #f56c6c;
+            font-size: 36rpx;
             font-weight: bold;
-            margin: 10rpx 0;
+            color: #f59e0b;
           }
           
-          .btn-book {
-            padding: 12rpx 32rpx;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            border-radius: 40rpx;
-            font-size: 26rpx;
+          .book-btn {
+            padding: 12rpx 24rpx;
+            background: linear-gradient(135deg, $primary, $primary-light);
+            border-radius: 32rpx;
             
-            &[disabled] {
-              background: #e0e0e0;
-              color: #999;
+            text {
+              font-size: 26rpx;
+              color: #fff;
+              font-weight: 500;
+            }
+            
+            &.disabled {
+              background: #e2e8f0;
+              
+              text {
+                color: $gray;
+              }
             }
           }
         }
       }
       
-      .empty-tip {
+      .empty-slot {
+        padding: 48rpx;
         text-align: center;
-        padding: 60rpx 0;
-        color: #999;
-        font-size: 28rpx;
+        background: #fff;
+        border-radius: 20rpx;
+        
+        text {
+          font-size: 28rpx;
+          color: $gray;
+        }
       }
     }
   }
-  
-  /* 空状态样式 */
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100rpx 0;
-    text-align: center;
-  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 0;
   
   .empty-icon {
     font-size: 100rpx;
-    margin-bottom: 30rpx;
-    opacity: 0.6;
+    margin-bottom: 24rpx;
   }
   
-  .empty-text {
+  .empty-title {
+    font-size: 32rpx;
+    font-weight: 500;
+    color: $dark;
+    margin-bottom: 12rpx;
+  }
+  
+  .empty-desc {
     font-size: 28rpx;
-    color: #999;
-  }
-  
-  /* 加载中样式 */
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60rpx 0;
-  }
-  
-  .loading-spinner {
-    width: 60rpx;
-    height: 60rpx;
-    border: 6rpx solid rgba(102, 126, 234, 0.2);
-    border-top-color: #667eea;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    color: $gray;
   }
 }
-</style>
 
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+  
+  .loading-spinner {
+    width: 64rpx;
+    height: 64rpx;
+    border: 6rpx solid rgba($primary, 0.2);
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20rpx;
+  }
+  
+  text {
+    font-size: 28rpx;
+    color: $gray;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.safe-bottom {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
+</style>

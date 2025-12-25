@@ -10,18 +10,21 @@
       <app-main/>
       <settings ref="settingRef"/>
     </div>
+    <!-- AI智能助手 -->
+    <ai-assistant/>
   </div>
 </template>
 
 <script>
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import AiAssistant from '@/components/AiAssistant'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import variables from '@/assets/styles/variables.scss'
 
 export default {
   name: 'Layout',
-  components: { AppMain, Navbar, Settings, Sidebar, TagsView },
+  components: { AppMain, Navbar, Settings, Sidebar, TagsView, AiAssistant },
   mixins: [ResizeMixin],
   computed: {
     ...mapState({

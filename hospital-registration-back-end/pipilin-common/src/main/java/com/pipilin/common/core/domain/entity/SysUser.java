@@ -91,6 +91,10 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
+    /** 用户类型（00系统用户 01患者） */
+    @Excel(name = "用户类型", readConverterExp = "00=系统用户,01=患者")
+    private String userType;
+
     private String openId;
 
     private BigDecimal balance;
@@ -428,6 +432,16 @@ public class SysUser extends BaseEntity
     public void setRoleId(Long roleId)
     {
         this.roleId = roleId;
+    }
+
+    public String getUserType()
+    {
+        return userType;
+    }
+
+    public void setUserType(String userType)
+    {
+        this.userType = userType;
     }
 
     @Override

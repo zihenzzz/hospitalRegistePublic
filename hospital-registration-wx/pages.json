@@ -9,14 +9,21 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "医院预约挂号",
+        "navigationStyle": "custom",
         "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/aiAssistant/aiAssistant",
+      "style": {
+        "navigationBarTitleText": "智能助手",
+        "navigationStyle": "custom"
       }
     },
     {
       "path": "pages/schedulingRecord/schedulingRecord",
       "style": {
-        "navigationBarTitleText": "选择排班"
+        "navigationStyle": "custom"
       }
     },
     {
@@ -28,7 +35,8 @@
     {
       "path": "pages/registrationRecord/registrationRecord",
       "style": {
-        "navigationBarTitleText": "挂号记录"
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": true
       }
     },
     {
@@ -64,7 +72,7 @@
     {
       "path": "pages/my/my",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationStyle": "custom"
       }
     },
     {
@@ -75,8 +83,8 @@
     }
   ],
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#5677fc",
+    "color": "#64748b",
+    "selectedColor": "#0891b2",
     "borderStyle": "white",
     "backgroundColor": "#ffffff",
     "list": [

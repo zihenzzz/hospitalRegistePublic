@@ -1,84 +1,104 @@
 <template>
   <view class="container">
+    <!-- 顶部 -->
+    <view class="header-section">
+      <view class="header-bg"></view>
+      <view class="header-content">
+        <text class="header-title">就诊人管理</text>
+        <text class="header-desc">管理您的就诊人信息</text>
+      </view>
+    </view>
+
     <!-- 就诊人列表 -->
     <view class="visitors-list">
       <view 
-        class="visitor-item card"
+        class="visitor-card"
         v-for="(item, index) in visitorsList" 
         :key="index"
       >
-        <view class="visitor-info">
-          <view class="name-tag">
-            <text class="name">{{ item.name }}</text>
-            <text class="tag" v-if="item.isDefault">默认</text>
+        <view class="card-main">
+          <view class="visitor-avatar">
+            <text>{{ item.gender === '1' ? '👨' : '👩' }}</text>
           </view>
-          <view class="detail-row">
-            <text class="label">性别：</text>
-            <text class="value">{{ item.gender === '1' ? '男' : '女' }}</text>
-          </view>
-          <view class="detail-row">
-            <text class="label">手机号：</text>
-            <text class="value">{{ item.phone }}</text>
-          </view>
-          <view class="detail-row">
-            <text class="label">身份证号：</text>
-            <text class="value">{{ formatIdCard(item.idCard) }}</text>
+          <view class="visitor-info">
+            <view class="info-top">
+              <text class="visitor-name">{{ item.name }}</text>
+              <view class="default-tag" v-if="item.isDefault">默认</view>
+            </view>
+            <view class="info-detail">
+              <text>{{ item.gender === '1' ? '男' : '女' }} · {{ formatIdCard(item.idCard) }}</text>
+            </view>
+            <view class="info-phone">
+              <u-icon name="phone" color="#64748b" size="24"></u-icon>
+              <text>{{ item.phone }}</text>
+            </view>
           </view>
         </view>
-        
-        <view class="visitor-actions">
-          <button class="btn-edit" size="mini" @click="editVisitor(item)">
-            <text class="icon">✎</text>
-          </button>
-          <button class="btn-delete" size="mini" @click="deleteVisitor(item, index)">
-            <text class="icon">🗑</text>
-          </button>
+        <view class="card-actions">
+          <view class="action-btn edit" @click="editVisitor(item)">
+            <u-icon name="edit-pen" color="#0891b2" size="36"></u-icon>
+          </view>
+          <view class="action-btn delete" @click="deleteVisitor(item, index)">
+            <u-icon name="trash" color="#ef4444" size="36"></u-icon>
+          </view>
         </view>
       </view>
     </view>
 
     <!-- 添加按钮 -->
-    <view class="add-visitor">
+    <view class="add-section">
       <button class="btn-add" @click="addVisitor">
-        <text class="icon">+</text>
+        <u-icon name="plus" color="#0891b2" size="36"></u-icon>
         <text>添加就诊人</text>
       </button>
     </view>
 
     <!-- 空状态 -->
-    <u-empty 
-      v-if="visitorsList.length === 0" 
-      text="暂无就诊人"
-      mode="list"
-    >
-      <button slot="bottom" class="btn-add-empty" @click="addVisitor">
-        添加就诊人
-      </button>
-    </u-empty>
+    <view v-if="visitorsList.length === 0" class="empty-state">
+      <view class="empty-icon">👥</view>
+      <text class="empty-title">暂无就诊人</text>
+      <text class="empty-desc">添加就诊人后可快速预约挂号</text>
+      <button class="btn-add-primary" @click="addVisitor">添加就诊人</button>
+    </view>
 
     <!-- 编辑/添加弹窗 -->
-    <u-popup v-model="showDialog" mode="center" border-radius="20">
+    <u-popup v-model="showDialog" mode="bottom" border-radius="24">
       <view class="dialog">
-        <view class="dialog-title">{{ dialogTitle }}</view>
+        <view class="dialog-header">
+          <text class="dialog-title">{{ dialogTitle }}</text>
+          <view class="dialog-close" @click="closeDialog">
+            <u-icon name="close" color="#64748b" size="40"></u-icon>
+          </view>
+        </view>
         <view class="dialog-content">
           <view class="form-item">
             <text class="form-label">姓名</text>
             <input 
               class="form-input" 
               v-model="formData.name" 
-              placeholder="请输入姓名"
+              placeholder="请输入真实姓名"
             />
           </view>
           <view class="form-item">
             <text class="form-label">性别</text>
-            <radio-group class="form-radio" @change="onGenderChange">
-              <label>
-                <radio value="1" :checked="formData.gender === '1'" />男
-              </label>
-              <label>
-                <radio value="2" :checked="formData.gender === '2'" />女
-              </label>
-            </radio-group>
+            <view class="gender-selector">
+              <view 
+                class="gender-item" 
+                :class="{ 'active': formData.gender === '1' }"
+                @click="formData.gender = '1'"
+              >
+                <text class="gender-emoji">👨</text>
+                <text>男</text>
+              </view>
+              <view 
+                class="gender-item" 
+                :class="{ 'active': formData.gender === '2' }"
+                @click="formData.gender = '2'"
+              >
+                <text class="gender-emoji">👩</text>
+                <text>女</text>
+              </view>
+            </view>
           </view>
           <view class="form-item">
             <text class="form-label">手机号</text>
@@ -99,19 +119,25 @@
               placeholder="请输入身份证号"
             />
           </view>
-          <view class="form-item">
-            <label class="form-checkbox">
-              <checkbox :checked="formData.isDefault" @change="onDefaultChange" />
-              <text>设为默认就诊人</text>
-            </label>
+          <view class="form-item-checkbox">
+            <view 
+              class="checkbox-wrap" 
+              :class="{ 'checked': formData.isDefault }"
+              @click="formData.isDefault = !formData.isDefault"
+            >
+              <u-icon v-if="formData.isDefault" name="checkmark" color="#fff" size="24"></u-icon>
+            </view>
+            <text>设为默认就诊人</text>
           </view>
         </view>
         <view class="dialog-footer">
-          <button class="btn-dialog btn-cancel" @click="closeDialog">取消</button>
-          <button class="btn-dialog btn-confirm" @click="saveVisitor">确定</button>
+          <button class="btn-save" @click="saveVisitor">保存</button>
         </view>
       </view>
     </u-popup>
+
+    <!-- 底部安全间距 -->
+    <view class="safe-bottom"></view>
   </view>
 </template>
 
@@ -139,18 +165,15 @@ export default {
     this.loadVisitors()
   },
   methods: {
-    // 加载就诊人列表
     loadVisitors() {
       const visitors = uni.getStorageSync(config.cacheKeys.visitors) || []
       this.visitorsList = visitors
     },
     
-    // 保存就诊人列表
     saveVisitors() {
       uni.setStorageSync(config.cacheKeys.visitors, this.visitorsList)
     },
     
-    // 添加就诊人
     addVisitor() {
       this.isEdit = false
       this.dialogTitle = '添加就诊人'
@@ -164,7 +187,6 @@ export default {
       this.showDialog = true
     },
     
-    // 编辑就诊人
     editVisitor(item) {
       this.isEdit = true
       this.dialogTitle = '编辑就诊人'
@@ -173,91 +195,56 @@ export default {
       this.showDialog = true
     },
     
-    // 删除就诊人
     deleteVisitor(item, index) {
       uni.showModal({
-        title: '提示',
+        title: '删除就诊人',
         content: '确定要删除该就诊人吗？',
+        confirmColor: '#0891b2',
         success: (res) => {
           if (res.confirm) {
             this.visitorsList.splice(index, 1)
             this.saveVisitors()
-            uni.showToast({
-              title: '删除成功',
-              icon: 'success'
-            })
+            uni.showToast({ title: '删除成功', icon: 'success' })
           }
         }
       })
     },
     
-    // 保存就诊人
     saveVisitor() {
-      // 验证
       if (!this.formData.name) {
-        uni.showToast({
-          title: '请输入姓名',
-          icon: 'none'
-        })
+        uni.showToast({ title: '请输入姓名', icon: 'none' })
         return
       }
       
       if (!this.formData.phone || !/^1[3-9]\d{9}$/.test(this.formData.phone)) {
-        uni.showToast({
-          title: '请输入正确的手机号',
-          icon: 'none'
-        })
+        uni.showToast({ title: '请输入正确的手机号', icon: 'none' })
         return
       }
       
       if (!this.formData.idCard || !/^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/.test(this.formData.idCard)) {
-        uni.showToast({
-          title: '请输入正确的身份证号',
-          icon: 'none'
-        })
+        uni.showToast({ title: '请输入正确的身份证号', icon: 'none' })
         return
       }
       
-      // 如果设为默认，其他都取消默认
       if (this.formData.isDefault) {
-        this.visitorsList.forEach(item => {
-          item.isDefault = false
-        })
+        this.visitorsList.forEach(item => { item.isDefault = false })
       }
       
       if (this.isEdit) {
-        // 编辑
         this.visitorsList[this.currentIndex] = { ...this.formData }
       } else {
-        // 添加
         this.visitorsList.push({ ...this.formData })
       }
       
       this.saveVisitors()
       this.closeDialog()
-      
-      uni.showToast({
-        title: this.isEdit ? '修改成功' : '添加成功',
-        icon: 'success'
-      })
+      uni.showToast({ title: this.isEdit ? '修改成功' : '添加成功', icon: 'success' })
     },
     
-    // 关闭弹窗
     closeDialog() {
       this.showDialog = false
     },
     
-    // 性别选择
-    onGenderChange(e) {
-      this.formData.gender = e.detail.value
-    },
-    
-    // 默认选择
-    onDefaultChange(e) {
-      this.formData.isDefault = e.detail.value.length > 0
-    },
-    
-    // 格式化身份证号
     formatIdCard(idCard) {
       if (!idCard) return ''
       return idCard.substring(0, 6) + '********' + idCard.substring(14)
@@ -267,202 +254,345 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$primary: #0891b2;
+$primary-light: #06b6d4;
+$dark: #0f172a;
+$gray: #64748b;
+
 .container {
   min-height: 100vh;
-  padding: 20rpx;
-  background: #f5f5f5;
+  background: #f1f5f9;
+}
+
+.header-section {
+  position: relative;
+  
+  .header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200rpx;
+    background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  }
+  
+  .header-content {
+    position: relative;
+    padding: 60rpx 32rpx 32rpx;
+    
+    .header-title {
+      font-size: 40rpx;
+      font-weight: bold;
+      color: #fff;
+      display: block;
+      margin-bottom: 8rpx;
+    }
+    
+    .header-desc {
+      font-size: 26rpx;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
 }
 
 .visitors-list {
-  .visitor-item {
-    padding: 30rpx;
+  padding: 0 32rpx;
+  margin-top: -20rpx;
+  
+  .visitor-card {
+    background: #fff;
+    border-radius: 24rpx;
+    padding: 28rpx;
     margin-bottom: 20rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     
-    .visitor-info {
+    .card-main {
+      display: flex;
+      align-items: center;
       flex: 1;
       
-      .name-tag {
+      .visitor-avatar {
+        width: 88rpx;
+        height: 88rpx;
+        background: linear-gradient(135deg, #ecfeff, #f0fdfa);
+        border-radius: 22rpx;
         display: flex;
         align-items: center;
-        margin-bottom: 15rpx;
+        justify-content: center;
+        margin-right: 20rpx;
         
-        .name {
-          font-size: 32rpx;
-          font-weight: bold;
-          color: #333;
-          margin-right: 15rpx;
-        }
-        
-        .tag {
-          padding: 4rpx 16rpx;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: #fff;
-          font-size: 22rpx;
-          border-radius: 20rpx;
+        text {
+          font-size: 44rpx;
         }
       }
       
-      .detail-row {
-        font-size: 26rpx;
-        color: #666;
-        margin-bottom: 8rpx;
+      .visitor-info {
+        flex: 1;
         
-        .label {
-          color: #999;
+        .info-top {
+          display: flex;
+          align-items: center;
+          gap: 12rpx;
+          margin-bottom: 8rpx;
+          
+          .visitor-name {
+            font-size: 32rpx;
+            font-weight: bold;
+            color: $dark;
+          }
+          
+          .default-tag {
+            padding: 4rpx 12rpx;
+            background: linear-gradient(135deg, $primary, $primary-light);
+            color: #fff;
+            font-size: 22rpx;
+            border-radius: 8rpx;
+          }
+        }
+        
+        .info-detail {
+          font-size: 26rpx;
+          color: $gray;
+          margin-bottom: 8rpx;
+        }
+        
+        .info-phone {
+          display: flex;
+          align-items: center;
+          gap: 8rpx;
+          
+          text {
+            font-size: 26rpx;
+            color: $gray;
+          }
         }
       }
     }
     
-    .visitor-actions {
+    .card-actions {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 16rpx;
       
-      button {
-        width: 60rpx;
-        height: 60rpx;
-        padding: 0;
-        margin-bottom: 20rpx;
-        border-radius: 12rpx;
+      .action-btn {
+        width: 64rpx;
+        height: 64rpx;
+        border-radius: 16rpx;
         display: flex;
         align-items: center;
         justify-content: center;
         
-        .icon {
-          font-size: 32rpx;
+        &.edit {
+          background: #ecfeff;
         }
         
-        &.btn-edit {
-          background: #e8f4ff;
-          color: #409eff;
-        }
-        
-        &.btn-delete {
-          background: #fff1f0;
-          color: #f56c6c;
-          margin-bottom: 0;
+        &.delete {
+          background: #fef2f2;
         }
       }
     }
   }
 }
 
-.add-visitor {
-  margin-top: 30rpx;
+.add-section {
+  padding: 24rpx 32rpx;
   
   .btn-add {
     width: 100%;
-    padding: 30rpx 0;
+    height: 96rpx;
     background: #fff;
-    border: 2rpx dashed #667eea;
-    border-radius: 16rpx;
-    color: #667eea;
-    font-size: 30rpx;
+    border: 2rpx dashed $primary;
+    border-radius: 24rpx;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12rpx;
     
-    .icon {
-      font-size: 40rpx;
-      margin-right: 10rpx;
+    text {
+      font-size: 30rpx;
+      color: $primary;
+      font-weight: 500;
     }
   }
 }
 
-.btn-add-empty {
-  padding: 24rpx 60rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
-  border-radius: 40rpx;
-  font-size: 28rpx;
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 0;
+  
+  .empty-icon {
+    font-size: 100rpx;
+    margin-bottom: 24rpx;
+  }
+  
+  .empty-title {
+    font-size: 32rpx;
+    font-weight: 500;
+    color: $dark;
+    margin-bottom: 12rpx;
+  }
+  
+  .empty-desc {
+    font-size: 28rpx;
+    color: $gray;
+    margin-bottom: 40rpx;
+  }
+  
+  .btn-add-primary {
+    padding: 0 60rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    background: linear-gradient(135deg, $primary, $primary-light);
+    color: #fff;
+    border-radius: 44rpx;
+    font-size: 30rpx;
+    font-weight: 500;
+    border: none;
+  }
 }
 
 .dialog {
-  width: 600rpx;
   background: #fff;
-  border-radius: 20rpx;
-  overflow: hidden;
+  border-radius: 24rpx 24rpx 0 0;
   
-  .dialog-title {
-    padding: 40rpx 30rpx 30rpx;
-    text-align: center;
-    font-size: 34rpx;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 1rpx solid #f0f0f0;
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32rpx;
+    border-bottom: 1rpx solid #f1f5f9;
+    
+    .dialog-title {
+      font-size: 34rpx;
+      font-weight: bold;
+      color: $dark;
+    }
+    
+    .dialog-close {
+      width: 64rpx;
+      height: 64rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   
   .dialog-content {
-    padding: 30rpx;
+    padding: 32rpx;
     max-height: 800rpx;
     overflow-y: auto;
     
     .form-item {
-      margin-bottom: 30rpx;
+      margin-bottom: 28rpx;
       
       .form-label {
         display: block;
         font-size: 28rpx;
-        color: #333;
-        margin-bottom: 15rpx;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 16rpx;
       }
       
       .form-input {
         width: 100%;
-        padding: 20rpx;
-        background: #f5f5f5;
-        border-radius: 8rpx;
-        font-size: 28rpx;
-      }
-      
-      .form-radio {
-        display: flex;
+        height: 96rpx;
+        padding: 0 24rpx;
+        background: #f8fafc;
+        border: 2rpx solid #e2e8f0;
+        border-radius: 16rpx;
+        font-size: 30rpx;
         
-        label {
-          margin-right: 40rpx;
-          font-size: 28rpx;
-          color: #333;
+        &:focus {
+          border-color: $primary;
+          background: #fff;
         }
       }
       
-      .form-checkbox {
+      .gender-selector {
+        display: flex;
+        gap: 24rpx;
+        
+        .gender-item {
+          flex: 1;
+          height: 96rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12rpx;
+          background: #f8fafc;
+          border: 2rpx solid #e2e8f0;
+          border-radius: 16rpx;
+          transition: all 0.3s;
+          
+          &.active {
+            background: #ecfeff;
+            border-color: $primary;
+          }
+          
+          .gender-emoji {
+            font-size: 32rpx;
+          }
+          
+          text:last-child {
+            font-size: 28rpx;
+            color: $dark;
+          }
+        }
+      }
+    }
+    
+    .form-item-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 16rpx;
+      
+      .checkbox-wrap {
+        width: 44rpx;
+        height: 44rpx;
+        border: 2rpx solid #e2e8f0;
+        border-radius: 10rpx;
         display: flex;
         align-items: center;
-        font-size: 28rpx;
-        color: #333;
+        justify-content: center;
+        transition: all 0.3s;
         
-        checkbox {
-          margin-right: 10rpx;
+        &.checked {
+          background: $primary;
+          border-color: $primary;
         }
+      }
+      
+      text {
+        font-size: 28rpx;
+        color: $gray;
       }
     }
   }
   
   .dialog-footer {
-    display: flex;
-    border-top: 1rpx solid #f0f0f0;
+    padding: 24rpx 32rpx;
+    padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
     
-    .btn-dialog {
-      flex: 1;
-      padding: 30rpx 0;
-      font-size: 30rpx;
-      border-radius: 0;
-      
-      &.btn-cancel {
-        background: #fff;
-        color: #666;
-        border-right: 1rpx solid #f0f0f0;
-      }
-      
-      &.btn-confirm {
-        background: #fff;
-        color: #667eea;
-        font-weight: bold;
-      }
+    .btn-save {
+      width: 100%;
+      height: 96rpx;
+      line-height: 96rpx;
+      background: linear-gradient(135deg, $primary, $primary-light);
+      color: #fff;
+      border-radius: 48rpx;
+      font-size: 32rpx;
+      font-weight: 500;
+      border: none;
     }
   }
 }
-</style>
 
+.safe-bottom {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
+</style>

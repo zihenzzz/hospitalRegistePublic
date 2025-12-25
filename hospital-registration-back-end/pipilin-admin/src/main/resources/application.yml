@@ -59,28 +59,10 @@ spring:
     restart:
       # 热部署开关
       enabled: true
-  # redis 配置
-  redis:
-    # 地址
-    host: localhost
-    # 端口，默认为6379
-    port: 6379
-    # 数据库索引
-    database: 0
-    # 密码
-    password: 
-    # 连接超时时间
-    timeout: 10s
-    lettuce:
-      pool:
-        # 连接池中的最小空闲连接
-        min-idle: 0
-        # 连接池中的最大空闲连接
-        max-idle: 8
-        # 连接池的最大数据库连接数
-        max-active: 8
-        # #连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: -1ms
+  # AI配置
+  ai:
+    dashscope:
+      api-key: sk-b53c870d658742dc90037b3e813f1d04
 
 # token配置
 token:
@@ -115,17 +97,6 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
   packages-to-scan: com.pipilin.web.controller
-
-# Spring AI Alibaba 配置 - 暂时注释
-#spring:
-#  ai:
-#    dashscope:
-#      api-key: ${DASHSCOPE_API_KEY:your-api-key-here}
-#      chat:
-#        options:
-#          model: qwen-turbo
-#          temperature: 0.7
-#          max-tokens: 2000
 
 # 防止XSS攻击
 xss:

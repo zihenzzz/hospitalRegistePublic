@@ -26,8 +26,9 @@
 
         <!-- SpringDoc OpenAPI (替代Swagger) -->
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-agent-framework</artifactId>
+            <version>1.1.0.0-RC2</version>
         </dependency>
 
         <!-- Mysql驱动包 -->
@@ -35,18 +36,6 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
-
-        <!-- Spring AI Alibaba - 暂时注释，等项目稳定后再添加 -->
-        <!--
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-dashscope</artifactId>
-        </dependency>
-        -->
 
         <!-- 核心模块-->
         <dependency>
@@ -62,9 +51,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.2.0</version>
-                <configuration>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-                </configuration>
                 <executions>
                     <execution>
                         <goals>

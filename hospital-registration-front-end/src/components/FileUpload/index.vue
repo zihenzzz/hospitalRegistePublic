@@ -105,15 +105,18 @@ export default {
   mounted() {
     if (this.drag && !this.disabled) {
       this.$nextTick(() => {
-        const element = this.$refs.uploadFileList?.$el || this.$refs.uploadFileList
-        Sortable.create(element, {
-          ghostClass: 'file-upload-darg',
-          onEnd: (evt) => {
-            const movedItem = this.fileList.splice(evt.oldIndex, 1)[0]
-            this.fileList.splice(evt.newIndex, 0, movedItem)
-            this.$emit("input", this.listToString(this.fileList))
-          }
-        })
+        const uploadRef = this.$refs.uploadFileList
+        const element = uploadRef && uploadRef.$el ? uploadRef.$el : uploadRef
+        if (element) {
+          Sortable.create(element, {
+            ghostClass: 'file-upload-darg',
+            onEnd: (evt) => {
+              const movedItem = this.fileList.splice(evt.oldIndex, 1)[0]
+              this.fileList.splice(evt.newIndex, 0, movedItem)
+              this.$emit("input", this.listToString(this.fileList))
+            }
+          })
+        }
       })
     }
   },

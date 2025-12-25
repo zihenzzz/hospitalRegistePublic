@@ -9,7 +9,8 @@ import { isRelogin } from '@/utils/request'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/register']
+// 公开访问白名单（无需登录）
+const whiteList = ['/login', '/register', '/', '/dashboard']
 
 const isWhiteList = (path) => {
   return whiteList.some(pattern => isPathMatch(pattern, path))

@@ -2,7 +2,8 @@ package com.pipilin.web.controller.common;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import jakarta.annotation.Resource;
 import javax.imageio.ImageIO;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,15 +16,12 @@ import com.pipilin.common.config.PipilinConfig;
 import com.pipilin.common.constant.CacheConstants;
 import com.pipilin.common.constant.Constants;
 import com.pipilin.common.core.domain.AjaxResult;
-import com.pipilin.common.core.redis.RedisCache;
 import com.pipilin.common.utils.sign.Base64;
 import com.pipilin.common.utils.uuid.IdUtils;
 import com.pipilin.system.service.ISysConfigService;
 
 /**
  * 验证码操作处理
- * 
- * @author  931708230@qq.com
  */
 @RestController
 public class CaptchaController
@@ -34,11 +32,22 @@ public class CaptchaController
     @Resource(name = "captchaProducerMath")
     private Producer captchaProducerMath;
 
-    @Autowired
-    private RedisCache redisCache;
+    // 验证码缓存（内存存储）
+    private static final Map<String, CaptchaEntry> captchaCache = new ConcurrentHashMap<>();
+    
+    private static class CaptchaEntry {
+        String code;
+        long expireTime;
+        
+        CaptchaEntry(String code, long expireTime) {
+            this.code = code;
+            this.expireTime = expireTime;
+        }
+    }
     
     @Autowired
     private ISysConfigService configService;
+    
     /**
      * 生成验证码
      */
@@ -75,7 +84,13 @@ public class CaptchaController
             image = captchaProducer.createImage(capStr);
         }
 
-        redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
+        // 存储验证码到内存
+        long expireTime = System.currentTimeMillis() + Constants.CAPTCHA_EXPIRATION * 60 * 1000;
+        captchaCache.put(verifyKey, new CaptchaEntry(code, expireTime));
+        
+        // 清理过期验证码
+        cleanExpiredCaptcha();
+        
         // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try
@@ -90,5 +105,32 @@ public class CaptchaController
         ajax.put("uuid", uuid);
         ajax.put("img", Base64.encode(os.toByteArray()));
         return ajax;
+    }
+    
+    /**
+     * 验证验证码
+     */
+    public static String getCaptcha(String key) {
+        CaptchaEntry entry = captchaCache.get(key);
+        if (entry == null) {
+            return null;
+        }
+        if (System.currentTimeMillis() > entry.expireTime) {
+            captchaCache.remove(key);
+            return null;
+        }
+        return entry.code;
+    }
+    
+    /**
+     * 删除验证码
+     */
+    public static void removeCaptcha(String key) {
+        captchaCache.remove(key);
+    }
+    
+    private void cleanExpiredCaptcha() {
+        long now = System.currentTimeMillis();
+        captchaCache.entrySet().removeIf(entry -> now > entry.getValue().expireTime);
     }
 }
