@@ -1,0 +1,1144 @@
+// Orano 风格 - 现代企业级设计 + 强视觉冲击
+$primary: #10B981;
+$primary-light: #34D399;
+$primary-dark: #059669;
+$accent: #6366F1;
+$dark: #0F172A;
+$gray: #64748B;
+$light-gray: #F1F5F9;
+
+// 基础样式
+.portal-page {
+  min-height: 100vh;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+// 导航栏
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    padding: 12px 0;
+    
+    .logo span { color: $dark; }
+    .nav-menu a { color: $dark; }
+  }
+  
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      svg { width: 100%; height: 100%; color: $primary; }
+    }
+    
+    span {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      transition: color 0.3s;
+    }
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 40px;
+    
+    a {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: $primary;
+        transition: width 0.3s;
+      }
+      
+      &:hover, &.active {
+        color: $primary-light;
+        &::after { width: 100%; }
+      }
+    }
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    .ai-btn { color: $primary-light; font-weight: 500; }
+    .user-avatar {
+      cursor: pointer;
+      transition: transform 0.3s;
+      &:hover { transform: scale(1.1); }
+    }
+  }
+}
+
+// Hero 区域 - 全屏视差效果
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  
+  .parallax-bg {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    right: 0;
+    bottom: -20%;
+    z-index: 0;
+    
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, $dark 0%, #1e293b 40%, $primary-dark 100%);
+    }
+    
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba($primary, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba($primary, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 30s linear infinite;
+    }
+    
+    .floating-orbs {
+      position: absolute;
+      inset: 0;
+      
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        animation: float 25s ease-in-out infinite;
+        
+        &.orb-1 {
+          width: 800px;
+          height: 800px;
+          background: rgba($primary, 0.4);
+          top: -300px;
+          right: -200px;
+        }
+        
+        &.orb-2 {
+          width: 600px;
+          height: 600px;
+          background: rgba($accent, 0.3);
+          bottom: -200px;
+          left: -150px;
+          animation-delay: 5s;
+        }
+        
+        &.orb-3 {
+          width: 400px;
+          height: 400px;
+          background: rgba($primary-light, 0.25);
+          top: 40%;
+          left: 20%;
+          animation-delay: 10s;
+        }
+        
+        &.orb-4 {
+          width: 300px;
+          height: 300px;
+          background: rgba(#EC4899, 0.2);
+          bottom: 30%;
+          right: 15%;
+          animation-delay: 15s;
+        }
+      }
+    }
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 1000px;
+    padding: 0 40px;
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 14px 28px;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 40px;
+      animation: fadeInUp 1s ease;
+      
+      .pulse-dot {
+        width: 10px;
+        height: 10px;
+        background: $primary;
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+    
+    .hero-title {
+      margin: 0 0 32px;
+      
+      .line {
+        display: block;
+        font-size: 100px;
+        font-weight: 800;
+        line-height: 1.05;
+        color: #fff;
+        letter-spacing: -2px;
+        
+        &.line-1 { animation: slideInLeft 1s ease 0.2s both; }
+        
+        &.line-2 {
+          background: linear-gradient(135deg, $primary, $primary-light, #6EE7B7);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: slideInRight 1s ease 0.4s both;
+        }
+      }
+    }
+    
+    .hero-desc {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      max-width: 650px;
+      margin: 0 auto 48px;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+    
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease 0.7s both;
+      
+      .el-button {
+        padding: 16px 36px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 50px;
+        
+        &--primary {
+          background: linear-gradient(135deg, $primary, $primary-dark);
+          border: none;
+          box-shadow: 0 8px 30px rgba($primary, 0.4);
+          
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba($primary, 0.5);
+          }
+        }
+        
+        &.is-plain {
+          background: rgba(255, 255, 255, 0.1);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          color: #fff;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      animation: fadeInUp 1s ease 0.8s both;
+      
+      .stat-item {
+        text-align: center;
+        
+        .stat-num {
+          display: block;
+          font-size: 56px;
+          font-weight: 700;
+          color: #fff;
+          line-height: 1;
+        }
+        
+        .stat-label {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    animation: fadeInUp 1s ease 1s both;
+    
+    span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    
+    .mouse {
+      width: 26px;
+      height: 42px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 13px;
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+      
+      .wheel {
+        width: 4px;
+        height: 10px;
+        background: $primary;
+        border-radius: 2px;
+        animation: scrollWheel 2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(40px, -40px) scale(1.05); }
+  50% { transform: translate(-30px, 30px) scale(0.95); }
+  75% { transform: translate(20px, 20px) scale(1.02); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-120px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(120px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scrollWheel {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(12px); opacity: 0.3; }
+}
+
+// 通用区域样式
+.section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.section-header {
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.visible { opacity: 1; transform: translateY(0); }
+  
+  &.center { text-align: center; }
+  
+  .section-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba($primary, 0.1), rgba($primary-light, 0.1));
+    color: $primary-dark;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+  
+  h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: $dark;
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  
+  p {
+    font-size: 18px;
+    color: $gray;
+    margin: 0;
+  }
+  
+  &.light {
+    text-align: center;
+    .section-tag { background: rgba(255, 255, 255, 0.15); color: #fff; }
+    h2, p { color: #fff; }
+  }
+}
+
+.section-header.header-left + .more-btn,
+.header-left { flex: 1; }
+
+.section-header:not(.center):not(.light) {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  
+  .more-btn {
+    font-size: 15px;
+    color: $primary;
+    i { margin-left: 4px; transition: transform 0.3s; }
+    &:hover i { transform: translateX(5px); }
+  }
+}
+
+// 搜索区域
+.search-section {
+  padding: 140px 0 100px;
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+  
+  .search-card {
+    position: relative;
+    background: #fff;
+    border-radius: 32px;
+    padding: 60px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.08);
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    
+    &.visible { opacity: 1; transform: translateY(0); }
+    
+    .card-glow {
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba($primary, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: $dark;
+      margin: 0 0 12px;
+      text-align: center;
+    }
+    
+    .section-subtitle {
+      font-size: 16px;
+      color: $gray;
+      text-align: center;
+      margin: 0 0 40px;
+    }
+  }
+  
+  .search-box {
+    position: relative;
+    
+    .search-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 28px;
+      
+      span {
+        font-size: 15px;
+        color: $gray;
+        cursor: pointer;
+        padding: 10px 0;
+        position: relative;
+        transition: all 0.3s;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 3px;
+          background: $primary;
+          border-radius: 2px;
+          transition: width 0.3s;
+        }
+        
+        &.active, &:hover {
+          color: $primary;
+          &::after { width: 100%; }
+        }
+      }
+    }
+    
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      background: $light-gray;
+      border-radius: 20px;
+      padding: 10px 10px 10px 28px;
+      transition: all 0.3s;
+      
+      &:focus-within {
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba($primary, 0.1), 0 15px 50px rgba(0, 0, 0, 0.1);
+      }
+      
+      i { font-size: 22px; color: $gray; margin-right: 16px; }
+      
+      input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 16px;
+        color: $dark;
+        outline: none;
+        &::placeholder { color: #94a3b8; }
+      }
+      
+      .el-button {
+        height: 52px;
+        padding: 0 36px;
+        border-radius: 14px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+    
+    .hot-searches {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      
+      .label { font-size: 13px; color: $gray; }
+      
+      .tag {
+        font-size: 13px;
+        color: $gray;
+        background: $light-gray;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        
+        &:hover {
+          background: rgba($primary, 0.1);
+          color: $primary;
+        }
+      }
+    }
+  }
+  
+  // 功能卡片 - Orano大卡片风格
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    
+    &.visible .feature-card { opacity: 1; transform: translateY(0); }
+    
+    .feature-card {
+      position: relative;
+      height: 280px;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &:hover {
+        transform: translateY(-12px) scale(1.02);
+        
+        .card-bg { transform: scale(1.1); }
+        .card-arrow { transform: translateX(8px); opacity: 1; }
+      }
+      
+      .card-bg {
+        position: absolute;
+        inset: 0;
+        transition: transform 0.6s;
+      }
+      
+      .card-content {
+        position: relative;
+        height: 100%;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        
+        .card-icon {
+          width: 64px;
+          height: 64px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 24px;
+          
+          i { font-size: 28px; }
+        }
+        
+        h3 {
+          font-size: 22px;
+          font-weight: 700;
+          margin: 0 0 10px;
+        }
+        
+        p {
+          font-size: 14px;
+          opacity: 0.85;
+          margin: 0;
+          line-height: 1.6;
+        }
+        
+        .card-arrow {
+          margin-top: auto;
+          opacity: 0.7;
+          transition: all 0.3s;
+          
+          i { font-size: 20px; }
+        }
+      }
+    }
+  }
+}
+
+
+// 医生推荐区域
+.doctors-section {
+  padding: 120px 0;
+  background: #fff;
+  
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  
+  .doctor-card {
+    position: relative;
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    
+    &.visible { opacity: 1; transform: translateY(0); }
+    
+    &:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 60px rgba($primary, 0.15);
+      
+      .card-shine {
+        transform: translateX(100%) rotate(25deg);
+      }
+    }
+    
+    .card-shine {
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%) rotate(25deg);
+      transition: transform 0.8s;
+      pointer-events: none;
+    }
+    
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+      
+      .el-avatar {
+        background: linear-gradient(135deg, $primary, $primary-light);
+        font-size: 28px;
+        font-weight: 600;
+      }
+      
+      .doctor-basic {
+        h4 {
+          font-size: 20px;
+          font-weight: 600;
+          color: $dark;
+          margin: 0 0 6px;
+        }
+        
+        .title {
+          font-size: 13px;
+          color: $primary;
+          margin-right: 10px;
+        }
+        
+        .dept {
+          font-size: 13px;
+          color: $gray;
+        }
+      }
+    }
+    
+    .card-tags {
+      margin-bottom: 16px;
+      .el-tag { margin-right: 8px; border: none; }
+    }
+    
+    .doctor-intro {
+      font-size: 14px;
+      color: $gray;
+      line-height: 1.7;
+      margin: 0 0 24px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .card-actions {
+      display: flex;
+      gap: 12px;
+      
+      .el-button {
+        flex: 1;
+        border-radius: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// 科室导航区域 - 视差背景
+.departments-section {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+  
+  .dept-bg {
+    position: absolute;
+    inset: -20%;
+    background: linear-gradient(135deg, $dark 0%, #1e293b 50%, $primary-dark 100%);
+    z-index: 0;
+  }
+  
+  .section-inner {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .dept-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+  
+  .dept-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 24px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.visible { opacity: 1; transform: translateY(0); }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-10px) scale(1.03);
+      border-color: rgba($primary, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      
+      .dept-icon { transform: scale(1.2) rotate(5deg); }
+    }
+    
+    .dept-icon {
+      font-size: 44px;
+      margin-bottom: 16px;
+      transition: transform 0.3s;
+    }
+    
+    .dept-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .dept-count {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+
+// 医院推荐区域
+.hospitals-section {
+  padding: 120px 0;
+  background: $light-gray;
+  
+  .hospitals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    
+    &.visible .hospital-card { opacity: 1; transform: translateY(0); }
+  }
+  
+  .hospital-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hospital-logo {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, $primary, $primary-light);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    
+    .hospital-info {
+      margin-bottom: 24px;
+      
+      h4 {
+        font-size: 20px;
+        font-weight: 600;
+        color: $dark;
+        margin: 0 0 14px;
+      }
+      
+      .hospital-tags {
+        margin-bottom: 14px;
+        .el-tag { margin-right: 8px; border: none; }
+      }
+      
+      .hospital-address {
+        font-size: 14px;
+        color: $gray;
+        margin: 0;
+        i { margin-right: 6px; }
+      }
+    }
+    
+    .el-button {
+      width: 100%;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
+// 服务流程区域
+.process-section {
+  padding: 120px 0;
+  background: #fff;
+  
+  .process-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 80px;
+    
+    .step-line {
+      position: absolute;
+      top: 70px;
+      left: 12%;
+      right: 12%;
+      height: 3px;
+      background: linear-gradient(90deg, $primary, $primary-light);
+      z-index: 0;
+      border-radius: 2px;
+    }
+  }
+  
+  .step-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.visible { opacity: 1; transform: translateY(0); }
+    
+    .step-number {
+      font-size: 60px;
+      font-weight: 800;
+      color: rgba($primary, 0.1);
+      margin-bottom: -30px;
+    }
+    
+    .step-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, $primary, $primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      box-shadow: 0 15px 40px rgba($primary, 0.35);
+      
+      i { font-size: 40px; color: #fff; }
+    }
+    
+    h4 {
+      font-size: 20px;
+      font-weight: 600;
+      color: $dark;
+      margin: 0 0 12px;
+    }
+    
+    p {
+      font-size: 14px;
+      color: $gray;
+      margin: 0;
+      max-width: 200px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+}
+
+// 底部
+.portal-footer {
+  background: $dark;
+  padding: 80px 0 0;
+  
+  .footer-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 60px 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer-brand {
+    max-width: 320px;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      
+      svg { width: 40px; height: 40px; color: $primary; }
+      span { font-size: 20px; font-weight: 700; color: #fff; }
+    }
+    
+    p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+      margin: 0;
+    }
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 100px;
+    
+    .link-group {
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        margin: 0 0 24px;
+      }
+      
+      a {
+        display: block;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 14px;
+        cursor: pointer;
+        transition: color 0.3s;
+        
+        &:hover { color: $primary; }
+      }
+    }
+  }
+  
+  .footer-bottom {
+    padding: 24px 60px;
+    text-align: center;
+    
+    span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+// 预约弹窗
+.booking-dialog {
+  border-radius: 24px;
+  
+  .el-dialog__header {
+    padding: 28px 28px 0;
+    .el-dialog__title { font-size: 22px; font-weight: 600; }
+  }
+  
+  .el-dialog__body { padding: 28px; }
+}
+
+// 响应式
+@media (max-width: 1200px) {
+  .doctors-section .doctors-grid,
+  .hospitals-section .hospitals-grid,
+  .search-section .feature-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .departments-section .dept-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-header {
+    .nav-container { padding: 0 20px; }
+    .nav-menu { display: none; }
+  }
+  
+  .hero-section .hero-content {
+    padding: 0 20px;
+    
+    .hero-title .line { font-size: 56px; }
+    .hero-stats { gap: 40px; }
+    .stat-item .stat-num { font-size: 40px; }
+    .hero-actions { flex-direction: column; gap: 12px; }
+  }
+  
+  .section-inner { padding: 0 20px; }
+  .section-header h2 { font-size: 32px; }
+  
+  .search-section {
+    padding: 100px 0 60px;
+    
+    .search-card { padding: 32px 24px; border-radius: 24px; }
+    .feature-cards { grid-template-columns: 1fr; }
+    .feature-card { height: 200px; }
+  }
+  
+  .doctors-section .doctors-grid,
+  .hospitals-section .hospitals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .departments-section .dept-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .process-section {
+    .process-steps { flex-direction: column; gap: 50px; }
+    .step-line { display: none; }
+  }
+  
+  .portal-footer {
+    .footer-main {
+      flex-direction: column;
+      gap: 50px;
+      padding: 0 20px 50px;
+    }
+    .footer-links { gap: 50px; }
+  }
+}
